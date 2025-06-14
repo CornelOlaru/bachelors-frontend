@@ -1,0 +1,34 @@
+.product-modal{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    margin-top: 3rem;
+    z-index: 2000;
+}
+.product-modal-content{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.product-modal-img{
+
+    width: 100%;
+    
+}
+.product-modal-weight{
+
+}
+.product-modal-desc{
+
+}
+.product-modal-price{
+
+}
+
+.product-modal-add{
+ background-color: var(--sky-blue);
+
+}

@@ -33,3 +33,7 @@ const fetchData = async (endpoint, method = "GET", body, token = null) => {
 export const getMenu = async () => {
   return fetchData("api/products/", "GET", null, null);
 };
+
+export const saveOrder = async (body) => {
+  return fetchData("api/orders/", "POST", body, null )
+}

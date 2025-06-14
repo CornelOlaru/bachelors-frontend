@@ -1,0 +1,81 @@
+.menu-list {
+  padding: 8px;
+  background: #fff;
+  width: 100%;
+}
+
+.menu-item {
+  display: flex;
+  align-items: flex-start;
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+  min-height: 80px;
+}
+
+.menu-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.menu-name {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.menu-weight {
+  color: #007b83;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.menu-desc {
+  font-size: 13px;
+  color: #444;
+}
+
+.menu-price {
+  margin-top: 4px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.menu-img-actions {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.menu-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-bottom: 0px;
+/* position: relative; */
+}
+
+.menu-add-btn {
+  background: #469cff;
+  color: #fff;
+  border: none;
+  /* border-radius: 50%; */
+  width: 100%;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.20s;
+  /* margin-top: -20px; */
+}
+.menu-add-btn:hover{
+    background: #3091ff;
+}
+.menu-add-btn:active,
+.menu-add-btn:focus {
+  background: #469cff;
+}
