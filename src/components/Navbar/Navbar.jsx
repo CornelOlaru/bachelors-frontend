@@ -1,10 +1,33 @@
-import React from 'react'
+import { FaUser } from 'react-icons/fa'
+import { GiHamburgerMenu } from 'react-icons/gi'
+import "./navbar.css"
+
 
 const Navbar = () => {
   return (
-    <div>
-      
-    </div>
+    <nav className='navbar'>
+      <GiHamburgerMenu color='#486374'/>
+      <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
+     xmlns="http://www.w3.org/2000/svg">
+  <rect width="50" height="50" rx="14" fill="#469cff"/>
+  
+  <circle cx="25" cy="25" r="14" fill="#fff"/>
+  
+  <rect x="15" y="17" width="1.2" height="15" rx="1.5" fill="#469cff"/>
+  <rect x="13.2" y="17" width="1.2" height="6" rx="0.6" fill="#469cff"/>
+  <rect x="16.8" y="17" width="1.2" height="6" rx="0.6" fill="#469cff"/>
+  
+  <rect x="33" y="17" width="1.2" height="15" rx="1.5" fill="#469cff"/>
+  <circle cx="33.5" cy="19.5" r="3"  fill="#469cff"/>
+  
+  
+  <text x="25" y="46" text-anchor="middle" fill="#fff"
+        font-size="9" font-family="Inter,sans-serif" font-weight="bold" letter-spacing="0.5">
+    Bistro
+  </text>
+</svg>
+<FaUser color='#486374' />
+    </nav>
   )
 }
 

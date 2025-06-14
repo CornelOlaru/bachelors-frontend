@@ -13,31 +13,33 @@ const TablePage = () => {
   const { tableId } = useParams();
   const [sessionId, setSessionId] = useState(null);
   const [menu, setMenu] = useState([]);
-const [modalType, setModalType] = useState(null) // "product" | "cart" | "login" etc.  
-const [selectedProduct, setSelectedProduct] = useState(null);
-const { addToCart } = useContext(CartContext);
+  const [modalType, setModalType] = useState(null); // "product" | "cart" | "login" etc.
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const { addToCart, cart } = useContext(CartContext);
+  const [activeProductId, setActiveProductId] = useState(null);
+  //   const [quantity, setQuantity] = useState(1);
 
-const handleAddToCart = (product, quantity = 1) => {
-  addToCart(product, quantity);
-  // Dacă vrei, poți închide modalul aici:
-  setModalType(null);
-};
+  const handleAddToCart = (product, quantity = 1) => {
+    addToCart(product, quantity);
+    // Dacă vrei, poți închide modalul aici:
+    setModalType(null);
+  };
 
+  const openProductModal = (product) => {
+    setSelectedProduct(product);
+    setModalType("product");
+  };
 
-const openProductModal = (product) => {
-    setSelectedProduct(product)
-    setModalType("product")
-}
-
-const openCartModal = (cart) => {
+  const openCartModal = (cart) => {
     setSelectedProduct(cart);
     setModalType("cart");
-}
+  };
 
-const closeModal = () => setModalType(null);
+  const closeModal = () => setModalType(null);
   useEffect(() => {
-    if (!tableId) { //If table Id isn't present, the function does not fetch
-      return; 
+    if (!tableId) {
+      //If table Id isn't present, the function does not fetch
+      return;
     }
 
     let storedSessionId = localStorage.getItem("sessionId");
@@ -49,7 +51,6 @@ const closeModal = () => setModalType(null);
     setSessionId(storedSessionId);
     const fetchMenu = async () => {
       try {
-        
         const response = await getMenu();
         setMenu(response);
         console.log("Menu Array: ", response);
@@ -61,38 +62,42 @@ const closeModal = () => setModalType(null);
   }, [tableId]);
 
   return (
- <div className="menu-list">
-  {menu.map(product => (
-    <div className="menu-item" key={product._id}>
-      {/* Stânga: info */}
-      <div className="menu-info">
-        <div className="menu-name">{product.name}</div>
-        <div className="menu-weight">{product.weight} g</div>
-        <div className="menu-desc">{product.description}</div>
-        <div className="menu-price">{product.price} lei</div>
-      </div>
-      {/* Dreapta: poză + buton */}
-      <div className="menu-img-actions">
-        <img
-          src={product.imageUrl}
-          alt={product.name}
-          className="menu-img"
-          />
-         
-          <button className="menu-add-btn" onClick={() =>openProductModal(product)} >+</button>
-
-          <Modal
-          isOpen={modalType === "product"}
-          onRequestClose={closeModal}
+    <div className="menu-list">
+      {menu.map((product) => (
+        <div className="menu-item" key={product._id}>
+          {/* Stânga: info */}
+          <div className="menu-info" onClick={() => openProductModal(product)}>
+            <div className="menu-name">{product.name}</div>
+            <div className="menu-weight">{product.weight} g</div>
+            <div className="menu-desc">{product.description}</div>
+            <div className="menu-price">{product.price} lei</div>
+          </div>
+          <div
+            className="menu-img-actions"
+            onClick={() => openProductModal(product)}
           >
-            <ProductModal product = {selectedProduct} onAddToCart = {handleAddToCart}/>
-          </Modal>
-          
-
-      </div>
+            <img
+              src={product.imageUrl}
+              alt={product.name}
+              className="menu-img"
+            />
+            {cart.find(item => item._id === product._id ) ? (
+                <div className="menu-add-btn">{cart.find(item => item._id === product._id).quantity}</div>
+            ) : (
+                <button className="menu-add-btn" onClick={()=> openProductModal(product)}>+</button>
+            )
+            
+            }
+            <Modal isOpen={modalType === "product"} onRequestClose={closeModal}>
+              <ProductModal
+                product={selectedProduct}
+                onAddToCart={handleAddToCart}
+              />
+            </Modal>
+          </div>
+        </div>
+      ))}
     </div>
-  ))}    
-</div>
   );
 };
 

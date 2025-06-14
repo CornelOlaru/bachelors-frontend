@@ -37,3 +37,7 @@ export const getMenu = async () => {
 export const saveOrder = async (body) => {
   return fetchData("api/orders/", "POST", body, null )
 }
+
+export const getOrders = async () => {
+  return fetchData("/api/orders/", "GET", null, null)
+}

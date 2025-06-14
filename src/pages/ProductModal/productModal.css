@@ -6,10 +6,13 @@
     align-items: stretch;
     margin-top: 3rem;
     z-index: 2000;
+    
 }
 .product-modal-content{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    
 
 }
 
@@ -26,6 +29,13 @@
 }
 .product-modal-price{
 
+}
+.product-modal-quantity{
+    margin: 0 auto;
+}
+.product-modal-quantity button{
+ background-color: var(--sky-blue);
+    
 }
 
 .product-modal-add{

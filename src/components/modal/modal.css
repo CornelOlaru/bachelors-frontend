@@ -12,7 +12,7 @@
     justify-content: center;
     width: 100%;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent overlay */
+     background-color: rgba(0, 0, 0, 0.1); /*Semi-transparent overlay */
     z-index: 1000;
     transition: opacity 0.3s ease;
     margin: 0 !important;
@@ -27,7 +27,7 @@
     /* max-width: 500px; */
     width: 100%; /* Adjust for responsive design */
     height: 100vh;
-    padding: 12px 20px;
+    padding: 12px 12px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);

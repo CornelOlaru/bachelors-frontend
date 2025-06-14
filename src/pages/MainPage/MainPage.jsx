@@ -6,6 +6,7 @@ import CartSticky from "../../components/Cart/CartSticky";
 import { useState } from "react";
 import Modal from "../../components/modal/Modal";
 import Cart from "../../components/Cart/Cart";
+import Navbar from "../../components/Navbar/Navbar";
 
 
 const MainPage = () => {
@@ -19,6 +20,7 @@ const MainPage = () => {
 
   return (
     <div className="main-container">
+        <Navbar/>
       <TablePage/>
      
         <CartSticky onClick={openCart}/>

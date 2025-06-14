@@ -55,6 +55,22 @@
   cursor: pointer;
 }
 
+.cart-tabs{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    background-color: #EAEAEA;
+    /* margin-top: 3rem; */
+}
+.cart-tabs button{
+    display: flex;
+    margin: 5px 10px;
+    font-size: .8rem;
+    flex-direction: row;
+    background-color: var(--sky-blue);
+}
 /* Lista de produse */
 .cart-item {
   display: flex;
@@ -63,6 +79,7 @@
   border-bottom: 1px solid #eee;
   padding: 12px 0;
 }
+
 
 
 .cart-item h3 {
@@ -205,6 +222,73 @@
   cursor: pointer;
 }
 
+/* Ordered list */
+
+.ordered-list {
+  margin: 22px 0 0 0;
+ 
+}
+
+.ordered-list h2 {
+  font-size: 19px;
+  font-weight: 600;
+  color: #32105c;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+}
+
+.ordered-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e7e4f7;
+  padding: 10px 0;
+  font-size: 15px;
+}
+
+.ordered-info {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.ordered-name {
+  font-weight: 500;
+  color: #221733;
+}
+
+.ordered-qty {
+  background: #e6e2fa;
+  color: #7d41bc;
+  border-radius: 7px;
+  padding: 2px 9px;
+  font-size: 14px;
+  margin-left: 4px;
+}
+
+.ordered-price {
+  font-weight: bold;
+  color: #32105c;
+  font-size: 15px;
+  min-width: 62px;
+  text-align: right;
+}
+
+.empty-ordered {
+  text-align: center;
+  color: #a5a1c7;
+  padding: 22px 0 10px 0;
+  font-size: 16px;
+}
+.ordered-total {
+  font-weight: bold;
+  color: #3b2357;
+  font-size: 17px;
+  text-align: right;
+  margin: 17px 0 0 0;
+}
+
+
 /* 
 CartSticy CSS */
 
@@ -214,7 +298,7 @@ CartSticy CSS */
   right: 0;
   bottom: 0;
   z-index: 1;
-  background: var(--sky-blue);
+  background: var(--light-sky-blue);
   color: #fff;
   border-radius: 8px;
   /* box-shadow: 0 -2px 18px rgba(50, 16, 92, 0.13); */
@@ -232,12 +316,20 @@ CartSticy CSS */
   box-shadow: 0 0 0 3px var(--light-sky-blue);
 }
 .cart-sticky-items {
-  font-size: 15px;
+  font-size: 1rem;
+  background-color: #1a1125;
+  padding: 4px 8px;
+  border-radius: 5px;
+
+}
+.cart-sticky-title{
+
 }
 .cart-sticky-total {
   font-size: 16px;
   font-weight: bold;
   margin-left: 10px;
+  
 }
 .cart-sticky-arrow {
   font-size: 22px;
