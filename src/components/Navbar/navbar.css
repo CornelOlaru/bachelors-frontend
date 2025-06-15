@@ -1,18 +1,112 @@
-.navbar{
-     position: fixed;
+.navbar-component {
+  overflow-x: auto;
+}
+
+.navbar {
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   background-image: linear-gradient(
-    rgba(255, 255, 255, 0.9),
-    rgba(255, 255, 255, 0.9)
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 1)
   );
   background-size: cover;
   background-position: center;
   z-index: 99;
-  box-shadow: 0 2px 6px 2px rgba(26, 17, 37, .1), 0 1px 2px 0 rgba(26, 17, 37, .2);
-  -webkit-box-shadow: 0 2px 6px 2px rgba(26, 17, 37, .1), 0 1px 2px 0 rgba(26, 17, 37, .2);;
-  -moz-box-shadow: 0 2px 6px 2px rgba(26, 17, 37, .1), 0 1px 2px 0 rgba(26, 17, 37, .2);;
   padding: 8px;
-  
+}
+
+.secondary-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: fixed; /* Sau fixed dacă vrei peste tot */
+  top: 60px; /* Pune cât are navbarul tău */
+  z-index: 98;
+  background-image: linear-gradient(
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 1)
+  );
+  background-size: cover;
+  background-position: center;
+  padding: 8px 8px;
+  border-bottom: 1.5px solid #eee;
+
+  white-space: nowrap;
+  width: 100%;
+
+  /* box-shadow: 0 2px 6px 2px rgba(26, 17, 37, 0.1),
+    0 1px 2px 0 rgba(26, 17, 37, 0.2);
+  -webkit-box-shadow: 0 2px 6px 2px rgba(26, 17, 37, 0.1),
+    0 1px 2px 0 rgba(26, 17, 37, 0.2);
+  -moz-box-shadow: 0 2px 6px 2px rgba(26, 17, 37, 0.1),
+    0 1px 2px 0 rgba(26, 17, 37, 0.2); */
+}
+
+.secondary-nav-icon::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.secondary-nav-items{
+    box-shadow:
+    inset 12px 0 15px -12px #a89ddb1f,  /* stânga */
+    inset -12px 0 15px -12px #a89ddb1f, /* dreapta */
+    inset 0 -4px 12px -8px #a89ddb36;   /* jos */ 
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scrollbar-width: none; /* Firefox */
+}
+/* Shadow left&right for categories nav */
+.secondary-nav-items::before,
+.secondary-nav-items::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 24px;   /* cât de lat vrei fade-ul */
+  height: 100%;
+  pointer-events: none;
+  z-index: 112;
+}
+
+.secondary-nav-items::before {
+  left: 30px;
+  background: linear-gradient(to right, #fff 50%, transparent);
+}
+
+.secondary-nav-items::after {
+  right: 1px;
+  background: linear-gradient(to left, #fff 50%, transparent);
+}
+
+.secondary-nav-item {
+  display: flex;
+  gap: 8px;
+}
+
+.search-icon {
+  /* overflow-x: hidden; */
+}
+
+.cat-btn {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000;
+  background: #eaeaea;
+  border: none;
+  border-radius: 8px;
+  padding: 0px 10px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  margin-right: 2px;
+  white-space: nowrap;
+}
+
+.cat-btn.active {
+  background: #a0a0a0;
+  color: #fff;
+  box-shadow: 0 1px 7px #eae6fa2a;
+  height: auto;
+  font-size: 1rem;
 }

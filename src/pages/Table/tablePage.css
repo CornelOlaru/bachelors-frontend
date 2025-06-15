@@ -1,8 +1,10 @@
+
+
 .menu-list {
   padding: 8px;
   background: #ffffff;
   width: 100%;
-  padding-top: 66px;
+  padding-top: 120px;
   padding-bottom: 66px;
 }
 
@@ -80,4 +82,17 @@
 .menu-add-btn:active,
 .menu-add-btn:focus {
   background: #469cff;
+}
+
+.category-section {
+  margin-bottom: 30px;
+}
+.category-title {
+  margin-bottom: 12px;
+  font-size: 20px;
+  font-weight: 700;
+  
+  border-bottom: 1.5px solid #e7e4f7;
+  padding-bottom: 4px;
+  letter-spacing: 1px;
 }

@@ -1,11 +1,71 @@
 import { FaUser } from 'react-icons/fa'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import "./navbar.css"
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getMenu } from '../../services/apiService';
+import { IoSearch } from 'react-icons/io5';
 
 
 const Navbar = () => {
+const {tableId} = useParams();
+const [menu, setMenu] = useState([])
+const categories = [...new Set(menu.map(product => product.category))]
+const [activeCat, setActiveCat] = useState(categories[0])
+useEffect(() => {
+    if (!tableId) {
+      //If table Id isn't present, the function does not fetch
+      return;
+    }
+
+    const fetchMenu = async () => {
+      try {
+        const response = await getMenu();
+        setMenu(response);
+        console.log("category Array :  ", response);
+      } catch (error) {
+        console.log("Failed to fetch menu: ", error);
+      }
+    };
+    fetchMenu();
+  }, [tableId]);
+
+const handleCategoryClick = (cat) => {
+  const section = document.getElementById(`cat-${cat}`);
+  if (section) {
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
+    setActiveCat(cat); // marchezi și ca "active" dacă ai state pentru asta
+  }
+  if (section) {
+    const y = section.getBoundingClientRect().top + window.scrollY - 54; // 54px = height navbar
+    window.scrollTo({ top: y, behavior: "smooth" });
+    setActiveCat(cat);
+  }
+};
+
+useEffect(() => {
+    const handleScroll = () => {
+        let current = categories[0];
+        for (const cat of categories) {
+            const section = document.getElementById(`cat-${cat}`);
+            if (section) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 70) {
+                    current = cat;
+                }
+            }
+        }
+        setActiveCat(current);
+    }
+    window.addEventListener("scroll", handleScroll, {passive:true})
+    return () => window.removeEventListener("scroll", handleScroll)
+}, [categories])
+
+
   return (
-    <nav className='navbar'>
+    <div className='navbar-component'>
+        <div className='navbar'>
+
       <GiHamburgerMenu color='#486374'/>
       <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
      xmlns="http://www.w3.org/2000/svg">
@@ -27,7 +87,28 @@ const Navbar = () => {
   </text>
 </svg>
 <FaUser color='#486374' />
-    </nav>
+
+            </div>
+           <div className="secondary-nav">
+            <div className='search-icon'>
+                <IoSearch size={25}/>
+            </div>
+            <div className='secondary-nav-items'>
+
+  <span className="secondary-nav-item">
+    {categories.map(cat => (
+        <button
+        className={`cat-btn${activeCat === cat ? " active" : ""}`}
+        key={cat}
+        onClick={() => handleCategoryClick(cat)}
+        >
+        {cat.replace(/-/g, " ").toUpperCase()}
+      </button>
+    ))}
+  </span>
+    </div>
+</div>
+    </div>
   )
 }
 

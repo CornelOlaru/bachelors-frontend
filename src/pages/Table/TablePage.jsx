@@ -61,44 +61,51 @@ const TablePage = () => {
     fetchMenu();
   }, [tableId]);
 
-  return (
-    <div className="menu-list">
-      {menu.map((product) => (
-        <div className="menu-item" key={product._id}>
-          {/* Stânga: info */}
-          <div className="menu-info" onClick={() => openProductModal(product)}>
-            <div className="menu-name">{product.name}</div>
-            <div className="menu-weight">{product.weight} g</div>
-            <div className="menu-desc">{product.description}</div>
-            <div className="menu-price">{product.price} lei</div>
-          </div>
-          <div
-            className="menu-img-actions"
-            onClick={() => openProductModal(product)}
-          >
-            <img
-              src={product.imageUrl}
-              alt={product.name}
-              className="menu-img"
-            />
-            {cart.find(item => item._id === product._id ) ? (
-                <div className="menu-add-btn">{cart.find(item => item._id === product._id).quantity}</div>
-            ) : (
-                <button className="menu-add-btn" onClick={()=> openProductModal(product)}>+</button>
-            )
-            
-            }
-            <Modal isOpen={modalType === "product"} onRequestClose={closeModal}>
-              <ProductModal
-                product={selectedProduct}
-                onAddToCart={handleAddToCart}
+  const categories = [...new Set(menu.map(product => product.category))]
+
+
+ return (
+    <div className="nav-categories">
+{/* {categories} */}
+  <div className="menu-list">
+    {categories.map(cat => (
+      <div key={cat} id={`cat-${cat}`} className="category-section">
+        <h2 className="category-title">
+          {cat.replace(/-/g, " ").toUpperCase()}
+        </h2>
+        {menu.filter(product => product.category === cat).map(product => (
+          <div className="menu-item" key={product._id}>
+            <div className="menu-info" onClick={() => openProductModal(product)}>
+              <div className="menu-name">{product.name}</div>
+              <div className="menu-weight">{product.weight} g</div>
+              <div className="menu-desc">{product.description}</div>
+              <div className="menu-price">{product.price} lei</div>
+            </div>
+            <div className="menu-img-actions" onClick={() => openProductModal(product)}>
+              <img
+                src={product.imageUrl}
+                alt={product.name}
+                className="menu-img"
               />
-            </Modal>
+              {cart.find(item => item._id === product._id ) ? (
+                <div className="menu-add-btn">{cart.find(item => item._id === product._id).quantity}</div>
+              ) : (
+                <button className="menu-add-btn" onClick={()=> openProductModal(product)}>+</button>
+              )}
+              <Modal isOpen={modalType === "product"} onRequestClose={closeModal}>
+                <ProductModal
+                  product={selectedProduct}
+                  onAddToCart={handleAddToCart}
+                />
+              </Modal>
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
-  );
+        ))}
+      </div>
+    ))}
+  </div>
+  </div>
+);
 };
 
 export default TablePage;
