@@ -39,5 +39,20 @@ export const saveOrder = async (body) => {
 }
 
 export const getOrders = async () => {
-  return fetchData("/api/orders/", "GET", null, null)
+  return fetchData("api/orders/", "GET", null, null)
+}
+
+export const registerUser = async (body) => {
+  return fetchData("user/register", "POST", body, null);
+}
+
+export const loginUser = async (body) => {
+  return fetchData("auth/login", "POST", body, null)
+}
+
+export const getUser = async (_id) => {
+  return fetchData(`api/users/${_id}`, "GET", null, null)
+}
+export const saveUser = async (_id ,body) => {
+  return fetchData(`api/users/${_id}`, "PUT", body, null)
 }

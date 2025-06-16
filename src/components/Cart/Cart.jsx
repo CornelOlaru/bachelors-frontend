@@ -26,13 +26,14 @@ const Cart = ({ onRequestClose }) => {
     if (token) {
       try {
         const decoded = jwtDecode(token);
-        setUserId(decoded?.userId);
+        setUserId(decoded?.id);
+        console.log("UserID: ", userId)
       } catch (error) {
         setUserId(null);
         console.error(error);
       }
     }
-  }, [token]);
+  }, [token, userId]);
 
   const handleQuantityChange = (productId, delta) => {
     const item = cart.find((item) => item._id === productId);
@@ -77,6 +78,7 @@ const Cart = ({ onRequestClose }) => {
     };
     try {
       console.log(order);
+      console.log(userId)
       const response = await saveOrder(order);
 
       alert("Order sent successfully!");

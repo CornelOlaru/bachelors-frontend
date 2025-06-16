@@ -11,6 +11,9 @@ import Navbar from "../../components/Navbar/Navbar";
 
 const MainPage = () => {
   const [showCart, setShowCart] = useState(false);
+const [searchQuery, setSearchQuery] = useState("");
+const [searchResults, setSearchResults] = useState("");
+  
   const openCart = () => {
     setShowCart(true);
   }
@@ -20,8 +23,15 @@ const MainPage = () => {
 
   return (
     <div className="main-container">
-        <Navbar/>
-      <TablePage/>
+        <Navbar 
+         searchQuery={searchQuery}
+  setSearchQuery={setSearchQuery}
+  setSearchResults={setSearchResults}
+  />
+      <TablePage 
+       searchQuery= {searchQuery}
+       searchResults={searchResults}
+       />
      
         <CartSticky onClick={openCart}/>
 

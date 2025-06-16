@@ -1,18 +1,73 @@
-import { FaUser } from 'react-icons/fa'
-import { GiHamburgerMenu } from 'react-icons/gi'
-import "./navbar.css"
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { getMenu } from '../../services/apiService';
-import { IoSearch } from 'react-icons/io5';
+import { FaUser } from "react-icons/fa";
+import { GiHamburgerMenu } from "react-icons/gi";
+import "./navbar.css";
+import { useEffect, useMemo, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getMenu } from "../../services/apiService";
+import { IoSearch } from "react-icons/io5";
+import logo from "../../assets/logoSVG.svg";
+import LoginModal from "../../pages/Login/Login";
+import RegisterModal from "../../pages/Signup/SignupModal";
+import ProfileModal from "../../pages/profile/ProfileModal";
+
+const Navbar = ({searchQuery, setSearchQuery, setSearchResults}) => {
+  const { tableId } = useParams();
+  const [menu, setMenu] = useState([]);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+  
+  const normalize = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  
+  const categories = useMemo(() => {
+    const desiredOrder = ["mic-dejun", "pranz", "cina", "desert", "bauturi-nealcoolice", "bauturi-alcoolice" ];
+  return desiredOrder.filter(desiredCat =>
+    menu.some(p => normalize(p.category) === normalize(desiredCat))
+  );
+}, [menu]);
+
+  const [activeCat, setActiveCat] = useState(categories[0]);
+  const [showProfile, setShowProfile] = useState(false);
+    const [ showSearch, setShowSearch] = useState(false)
+
+  const token = localStorage.getItem("token");
 
 
-const Navbar = () => {
-const {tableId} = useParams();
-const [menu, setMenu] = useState([])
-const categories = [...new Set(menu.map(product => product.category))]
-const [activeCat, setActiveCat] = useState(categories[0])
-useEffect(() => {
+  const handleSearch = () => {
+    setSearchResults(searchQuery.trim())
+    // setShowSearch(false)
+     // Scroll la secțiunea cu rezultate după un scurt delay
+ 
+    const resultsSection = document.getElementById("search-results");
+    if (resultsSection) {
+      resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  // așteaptă puțin să se afișeze rezultatele
+
+  }
+
+  const handleCloseInput = () => {
+      setSearchQuery("");       // goliți inputul
+  setSearchResults("");   // ascundeți rezultatele
+  setShowSearch(false);     // închideți bara
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setShowProfile(false);
+    setShowLogin(false);
+  };
+
+  const handleUserClick = () => {
+    if (token) {
+      setShowProfile(true);
+    } else {
+      setShowLogin(true);
+    }
+  };
+
+  useEffect(() => {
     if (!tableId) {
       //If table Id isn't present, the function does not fetch
       return;
@@ -30,86 +85,117 @@ useEffect(() => {
     fetchMenu();
   }, [tableId]);
 
-const handleCategoryClick = (cat) => {
-  const section = document.getElementById(`cat-${cat}`);
-  if (section) {
-    section.scrollIntoView({ behavior: "smooth", block: "start" });
-    setActiveCat(cat); // marchezi și ca "active" dacă ai state pentru asta
-  }
-  if (section) {
-    const y = section.getBoundingClientRect().top + window.scrollY - 54; // 54px = height navbar
-    window.scrollTo({ top: y, behavior: "smooth" });
-    setActiveCat(cat);
-  }
-};
-
-useEffect(() => {
-    const handleScroll = () => {
-        let current = categories[0];
-        for (const cat of categories) {
-            const section = document.getElementById(`cat-${cat}`);
-            if (section) {
-                const rect = section.getBoundingClientRect();
-                if (rect.top <= 70) {
-                    current = cat;
-                }
-            }
-        }
-        setActiveCat(current);
+  const handleCategoryClick = (cat) => {
+    const section = document.getElementById(`cat-${cat}`);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+      setActiveCat(cat); // marchezi și ca "active" dacă ai state pentru asta
     }
-    window.addEventListener("scroll", handleScroll, {passive:true})
-    return () => window.removeEventListener("scroll", handleScroll)
-}, [categories])
+    if (section) {
+      const y = section.getBoundingClientRect().top + window.scrollY - 54; // 54px = height navbar
+      window.scrollTo({ top: y, behavior: "smooth" });
+      setActiveCat(cat);
+    }
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      let current = categories[0];
+      for (const cat of categories) {
+        const section = document.getElementById(`cat-${cat}`);
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= 70) {
+            current = cat;
+          }
+        }
+      }
+      setActiveCat(current);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [categories]);
+
+
 
 
   return (
-    <div className='navbar-component'>
-        <div className='navbar'>
+    <>
+      <div className="navbar-component">
+        <div className="navbar">
+        
+          <GiHamburgerMenu color="#486374" />
+          <img src={logo} alt="Logo SVG" />
+          <FaUser color="#486374" onClick={handleUserClick} />
+        </div>
+           
+       {showSearch && (
+  <div className="search-overlay">
+    <form className="search-bar" onSubmit={(e) => {
+      e.preventDefault();
+      handleSearch();
+    }}>
+      
 
-      <GiHamburgerMenu color='#486374'/>
-      <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
-     xmlns="http://www.w3.org/2000/svg">
-  <rect width="50" height="50" rx="14" fill="#469cff"/>
-  
-  <circle cx="25" cy="25" r="14" fill="#fff"/>
-  
-  <rect x="15" y="17" width="1.2" height="15" rx="1.5" fill="#469cff"/>
-  <rect x="13.2" y="17" width="1.2" height="6" rx="0.6" fill="#469cff"/>
-  <rect x="16.8" y="17" width="1.2" height="6" rx="0.6" fill="#469cff"/>
-  
-  <rect x="33" y="17" width="1.2" height="15" rx="1.5" fill="#469cff"/>
-  <circle cx="33.5" cy="19.5" r="3"  fill="#469cff"/>
-  
-  
-  <text x="25" y="46" text-anchor="middle" fill="#fff"
-        font-size="9" font-family="Inter,sans-serif" font-weight="bold" letter-spacing="0.5">
-    Bistro
-  </text>
-</svg>
-<FaUser color='#486374' />
+      <input 
+        type="text"
+        placeholder="Caută..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
+      <button className="search-input-btn" type="button" onClick={handleCloseInput}>✕</button>
+    </form>
+  </div>
+)}
+        <div className="secondary-nav">
+          <div className="search-icon" onClick={()=>setShowSearch(true)}>
+            <IoSearch size={25} />
+          </div>
+          
+          <div className="secondary-nav-items">
+            <span className="secondary-nav-item">
+              {categories.map((cat) => (
+                <button
+                  className={`cat-btn${activeCat === cat ? " active" : ""}`}
+                  key={cat}
+                  onClick={() => handleCategoryClick(cat)}
+                >
+                  {cat.replace(/-/g, " ").toUpperCase()}
+                </button>
+              ))}
+            </span>
+          </div>
+        </div>
+      </div>
 
-            </div>
-           <div className="secondary-nav">
-            <div className='search-icon'>
-                <IoSearch size={25}/>
-            </div>
-            <div className='secondary-nav-items'>
+      {showLogin && (
+        <LoginModal
+          onRequestClose={() => setShowLogin(false)}
+          onSwitchToRegister={() => {
+            setShowLogin(false);
+            setShowRegister(true);
+          }}
+        />
+      )}
 
-  <span className="secondary-nav-item">
-    {categories.map(cat => (
-        <button
-        className={`cat-btn${activeCat === cat ? " active" : ""}`}
-        key={cat}
-        onClick={() => handleCategoryClick(cat)}
-        >
-        {cat.replace(/-/g, " ").toUpperCase()}
-      </button>
-    ))}
-  </span>
-    </div>
-</div>
-    </div>
-  )
-}
+      {showRegister && (
+        <RegisterModal
+          onRequestClose={() => setShowRegister(false)}
+          onSwitchToLogin={() => {
+            setShowRegister(false);
+            setShowLogin(true);
+          }}
+        />
+      )}
 
-export default Navbar
+      {showProfile && (
+        <ProfileModal
+          onClose={() => setShowProfile(false)}
+          onLogout={handleLogout}
+        />
+      )}
+    </>
+  );
+};
+
+export default Navbar;

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import "./tablePage.css";
 import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
@@ -9,7 +9,7 @@ import ProductModal from "../ProductModal/ProductModal";
 import Modal from "../../components/modal/Modal";
 import Cart from "../../components/Cart/Cart";
 import CartSticky from "../../components/Cart/CartSticky";
-const TablePage = () => {
+const TablePage = ({ searchQuery, searchResults }) => {
   const { tableId } = useParams();
   const [sessionId, setSessionId] = useState(null);
   const [menu, setMenu] = useState([]);
@@ -18,6 +18,14 @@ const TablePage = () => {
   const { addToCart, cart } = useContext(CartContext);
   const [activeProductId, setActiveProductId] = useState(null);
   //   const [quantity, setQuantity] = useState(1);
+
+  const filteredMenu = searchResults
+    ? menu.filter(
+        (item) =>
+          item.name.toLowerCase().includes(searchResults.toLowerCase()) ||
+          item.description.toLowerCase().includes(searchResults.toLowerCase())
+      )
+    : [];
 
   const handleAddToCart = (product, quantity = 1) => {
     addToCart(product, quantity);
@@ -61,51 +69,128 @@ const TablePage = () => {
     fetchMenu();
   }, [tableId]);
 
-  const categories = [...new Set(menu.map(product => product.category))]
-
-
- return (
+  
+  const normalize = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  
+  const categories = useMemo(() => {
+    const desiredOrder = ["mic-dejun", "pranz", "cina", "desert", "bauturi-nealcoolice", "bauturi-alcoolice" ];
+  return desiredOrder.filter(desiredCat =>
+    menu.some(p => normalize(p.category) === normalize(desiredCat))
+  );
+}, [menu]);
+  return (
     <div className="nav-categories">
-{/* {categories} */}
-  <div className="menu-list">
-    {categories.map(cat => (
-      <div key={cat} id={`cat-${cat}`} className="category-section">
-        <h2 className="category-title">
-          {cat.replace(/-/g, " ").toUpperCase()}
-        </h2>
-        {menu.filter(product => product.category === cat).map(product => (
-          <div className="menu-item" key={product._id}>
-            <div className="menu-info" onClick={() => openProductModal(product)}>
-              <div className="menu-name">{product.name}</div>
-              <div className="menu-weight">{product.weight} g</div>
-              <div className="menu-desc">{product.description}</div>
-              <div className="menu-price">{product.price} lei</div>
-            </div>
-            <div className="menu-img-actions" onClick={() => openProductModal(product)}>
-              <img
-                src={product.imageUrl}
-                alt={product.name}
-                className="menu-img"
-              />
-              {cart.find(item => item._id === product._id ) ? (
-                <div className="menu-add-btn">{cart.find(item => item._id === product._id).quantity}</div>
-              ) : (
-                <button className="menu-add-btn" onClick={()=> openProductModal(product)}>+</button>
-              )}
-              <Modal isOpen={modalType === "product"} onRequestClose={closeModal}>
-                <ProductModal
-                  product={selectedProduct}
-                  onAddToCart={handleAddToCart}
-                />
-              </Modal>
-            </div>
+      {searchResults.length > 0 && (
+      <div className="search-results">
+        <h2 className="category-title">Produse găsite:</h2>
+        {filteredMenu.length > 0 ? (
+          filteredMenu.map(product => <div className="menu-item" key={product._id}>
+                  <div
+                    className="menu-info"
+                    onClick={() => openProductModal(product)}
+                  >
+                    <div className="menu-name">{product.name}</div>
+                    <div className="menu-weight">{product.weight} g</div>
+                    <div className="menu-desc">{product.description}</div>
+                    <div className="menu-price">{product.price} lei</div>
+                  </div>
+                  <div
+                    className="menu-img-actions"
+                    onClick={() => openProductModal(product)}
+                  >
+                    <img
+                      src={product.imageUrl}
+                      alt={product.name}
+                      className="menu-img"
+                    />
+                    {cart.find((item) => item._id === product._id) ? (
+                      <div className="menu-add-btn">
+                        {cart.find((item) => item._id === product._id).quantity}
+                      </div>
+                    ) : (
+                      <button
+                        className="menu-add-btn"
+                        onClick={() => openProductModal(product)}
+                      >
+                        +
+                      </button>
+                    )}
+                    <Modal
+                      isOpen={modalType === "product"}
+                      onRequestClose={closeModal}
+                    >
+                      <ProductModal
+                        product={selectedProduct}
+                        onAddToCart={handleAddToCart}
+                      />
+                    </Modal>
+                  </div>
+                </div>)
+        ) : (
+          <p>Niciun produs găsit.</p>
+        )}
+      </div>
+    )}
+
+    
+      <div className="menu-list">
+        {categories.map((cat) => (
+          <div key={cat} id={`cat-${cat}`} className="category-section">
+            <h2 className="category-title">
+              {cat.replace(/-/g, " ").toUpperCase()}
+            </h2>
+            {menu
+              .filter((product) => product.category === cat)
+              .map((product) => (
+                <div className="menu-item" key={product._id}>
+                  <div
+                    className="menu-info"
+                    onClick={() => openProductModal(product)}
+                  >
+                    <div className="menu-name">{product.name}</div>
+                    <div className="menu-weight">{product.weight} g</div>
+                    <div className="menu-desc">{product.description}</div>
+                    <div className="menu-price">{product.price} lei</div>
+                  </div>
+                  <div
+                    className="menu-img-actions"
+                    onClick={() => openProductModal(product)}
+                  >
+                    <img
+                      src={product.imageUrl}
+                      alt={product.name}
+                      className="menu-img"
+                    />
+                    {cart.find((item) => item._id === product._id) ? (
+                      <div className="menu-add-btn">
+                        {cart.find((item) => item._id === product._id).quantity}
+                      </div>
+                    ) : (
+                      <button
+                        className="menu-add-btn"
+                        onClick={() => openProductModal(product)}
+                      >
+                        +
+                      </button>
+                    )}
+                    <Modal
+                      isOpen={modalType === "product"}
+                      onRequestClose={closeModal}
+                    >
+                      <ProductModal
+                        product={selectedProduct}
+                        onAddToCart={handleAddToCart}
+                      />
+                    </Modal>
+                  </div>
+                </div>
+              ))}
           </div>
         ))}
       </div>
-    ))}
-  </div>
-  </div>
-);
+      
+    </div>
+  );
 };
 
 export default TablePage;
