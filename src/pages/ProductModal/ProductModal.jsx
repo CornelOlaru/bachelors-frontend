@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./productModal.css"
+import Modal from "../../components/modal/Modal";
 
 const ProductModal = ({product, onAddToCart, cart}) => {
     
@@ -15,24 +16,34 @@ const ProductModal = ({product, onAddToCart, cart}) => {
     }
 
   return (
-    <div className="product-modal">
-        <div className="product-modal-content">
+    <>
+       
+    <Modal.Title>
 
+    
       <img src={product.imageUrl} alt={product.name} className="product-modal-img" />
+    </Modal.Title>
+    <Modal.Body>
+
       <h3 className="product-modal-title">{product.name}</h3>
       <div className="product-modal-weight">{product.weight}g</div>
       <div className="product-modal-desc">{product.description}</div>
       <div className="product-modal-price">{product.price} lei</div>
-        </div>
+       
          <div className="product-modal-quantity">
                     <button onClick={decreaseQty}>-</button>
                     <span>{quantity}</span>
                     <button onClick={increaseQty}>+</button>
                   </div>
+    </Modal.Body>
+    <Modal.Footer>
+
       <button className="product-modal-add" onClick={handleAdd}>
         Adaugă în coș
       </button>
-    </div>
+    </Modal.Footer>
+    </>
   )}
 
+    
 export default ProductModal

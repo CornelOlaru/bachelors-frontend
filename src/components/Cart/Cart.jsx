@@ -1,12 +1,14 @@
 /* eslint-disable no-unused-vars */
 import { useContext, useEffect, useState } from "react";
-import "./cart.css";
 import { CartContext } from "../../context/cartContext";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { saveOrder } from "../../services/apiService";
 import { useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import PaymentModal from "../../pages/paymentModal/PaymentModal";
+import "./cart.css";
+import { IoClose } from "react-icons/io5";
+import Modal from "../modal/Modal";
 
 const Cart = ({ onRequestClose }) => {
   const { cart, updateCartItem, removeFromCart, clearCart } =
@@ -145,11 +147,19 @@ const handlePaymentConfirm = async ({ method, cardDetails }) => {
 };
   return (
       <>
+      
+
+  <Modal.Title>
+
           <h2>My cart</h2>
       <div className="cart-tabs">
     <button onClick={()=> setTabs("selected")}>Selected</button>
     <button onClick={()=> setTabs("ordered")}>Ordered</button>
 </div>
+  </Modal.Title>
+<Modal.Body>
+
+
  {tab === "selected" && (
   <>
     <div className="page-container">
@@ -185,14 +195,19 @@ const handlePaymentConfirm = async ({ method, cardDetails }) => {
         </div>
       </div>
     </div>
-    {cart && (
-      <div>
-        <hr />
+    
+  </>
+)}
+</Modal.Body>
+<Modal.Footer>
+
+{tab === "selected" && cart && (
+  <div>
         <div
           id="dineInPlaceOrder"
           className="cart-footer"
           onClick={() => sendOrder()}
-        >
+          >
           <div>
             <div className="checkout-button" tabIndex={0} role="button">
               <div className="cart-qty">
@@ -205,15 +220,18 @@ const handlePaymentConfirm = async ({ method, cardDetails }) => {
         </div>
       </div>
     )}
-  </>
-)}
+    </Modal.Footer>
 
 {tab === "ordered" && (
+  
+  
   <div className="ordered-list">
-    <h2>Comenzi plasate</h2>
+    
+
     {orderedItems && orderedItems.length > 0 ? (
       <>
         {orderedItems.map((order) => (
+    <Modal.Body>
           <div key={order._id} className="ordered-order">
             <div className="ordered-header">
               <span>Total: {order.totalPrice || (order.items && order.items.reduce((sum, item) => sum + item.price * item.quantity, 0))} lei</span>
@@ -236,8 +254,11 @@ const handlePaymentConfirm = async ({ method, cardDetails }) => {
               )}
             </div>
           </div>
+          </Modal.Body>
         ))}
+        
         {/* Sticky Checkout button for ALL ordered items */}
+        <Modal.Footer>
         <div style={{ position: "sticky", bottom: 0, left: 0, right: 0, background: "#fff", zIndex: 9, marginTop: 20 }}>
           <hr />
           <div
@@ -269,12 +290,15 @@ const handlePaymentConfirm = async ({ method, cardDetails }) => {
             </div>
           </div>
         </div>
-        <PaymentModal
-        isOpen={showPayment}
-        onRequestClose= {()=> setShowPayment(false)}
-        onConfirm={handlePaymentConfirm}
-        total={totalPrice}
-        />
+        </Modal.Footer>
+       
+  <PaymentModal
+    isOpen={showPayment}
+    onRequestClose={() => setShowPayment(false)}
+    onConfirm={handlePaymentConfirm}
+    
+  />
+
       </>
     ) : (
       <div className="empty-ordered">Nu ai comenzi plasate.</div>

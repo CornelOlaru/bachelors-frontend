@@ -16,6 +16,12 @@
   --sky-gray: #486374;
 }
 
+  /* 👇 Blochează scroll pe body */
+.no-scroll {
+  overflow: hidden;
+  touch-action: none;
+}
+
 a {
   font-weight: 500;
   color: #646cff;

@@ -1,4 +1,4 @@
-.product-modal{
+/* .product-modal{
 
     display: flex;
     flex-direction: column;
@@ -15,7 +15,7 @@
     
 
 }
-
+*/
 .product-modal-img{
 
     width: 100%;
@@ -41,4 +41,4 @@
 .product-modal-add{
  background-color: var(--sky-blue);
 
-}
+} 

@@ -19,6 +19,15 @@ const TablePage = ({ searchQuery, searchResults }) => {
   const [activeProductId, setActiveProductId] = useState(null);
   //   const [quantity, setQuantity] = useState(1);
 
+const openProductModal = (product) => {
+  setSelectedProduct(product);
+  setModalType("product");
+};
+const closeModal = () => {
+  setSelectedProduct(null);
+  setModalType(null);
+
+};
   const filteredMenu = searchResults
     ? menu.filter(
         (item) =>
@@ -33,17 +42,17 @@ const TablePage = ({ searchQuery, searchResults }) => {
     setModalType(null);
   };
 
-  const openProductModal = (product) => {
-    setSelectedProduct(product);
-    setModalType("product");
-  };
+  // const openProductModal = (product) => {
+  //   setSelectedProduct(product);
+  //   setModalType("product");
+  // };
 
   const openCartModal = (cart) => {
     setSelectedProduct(cart);
     setModalType("cart");
   };
 
-  const closeModal = () => setModalType(null);
+  // const closeModal = () => setModalType(null);
   useEffect(() => {
     if (!tableId) {
       //If table Id isn't present, the function does not fetch
@@ -115,15 +124,7 @@ const TablePage = ({ searchQuery, searchResults }) => {
                         +
                       </button>
                     )}
-                    <Modal
-                      isOpen={modalType === "product"}
-                      onRequestClose={closeModal}
-                    >
-                      <ProductModal
-                        product={selectedProduct}
-                        onAddToCart={handleAddToCart}
-                      />
-                    </Modal>
+                    
                   </div>
                 </div>)
         ) : (
@@ -132,7 +133,7 @@ const TablePage = ({ searchQuery, searchResults }) => {
       </div>
     )}
 
-    
+   
       <div className="menu-list">
         {categories.map((cat) => (
           <div key={cat} id={`cat-${cat}`} className="category-section">
@@ -173,22 +174,32 @@ const TablePage = ({ searchQuery, searchResults }) => {
                         +
                       </button>
                     )}
-                    <Modal
+                    {/* <Modal
                       isOpen={modalType === "product"}
                       onRequestClose={closeModal}
                     >
                       <ProductModal
+                      size="100"
                         product={selectedProduct}
                         onAddToCart={handleAddToCart}
                       />
-                    </Modal>
+                    </Modal> */}
                   </div>
                 </div>
               ))}
           </div>
         ))}
       </div>
-      
+       <Modal
+                      isOpen={modalType === "product"}
+                      onRequestClose={closeModal}
+                    >
+                      <ProductModal
+                      size="100"
+                      product={selectedProduct}
+                      onAddToCart={handleAddToCart}
+                      />
+                      </Modal>
     </div>
   );
 };

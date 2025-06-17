@@ -1,7 +1,7 @@
-import { FaUser } from "react-icons/fa";
+import { FaBars, FaTimes, FaUser } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import "./navbar.css";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getMenu } from "../../services/apiService";
 import { IoSearch } from "react-icons/io5";
@@ -10,48 +10,81 @@ import LoginModal from "../../pages/Login/Login";
 import RegisterModal from "../../pages/Signup/SignupModal";
 import ProfileModal from "../../pages/profile/ProfileModal";
 
-const Navbar = ({searchQuery, setSearchQuery, setSearchResults}) => {
+const Navbar = ({ searchQuery, setSearchQuery, setSearchResults }) => {
   const { tableId } = useParams();
   const [menu, setMenu] = useState([]);
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+  const [click, setClick] = useState(false);
+  const sideMenuRef = useRef(null); //Using reference to check if the users click outside the element
   // eslint-disable-next-line react-hooks/exhaustive-deps
 
-  
-  const normalize = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-  
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+        if (sideMenuRef.current && !sideMenuRef.current.contains(e.target) && click) {
+            setClick(false)
+        } 
+
+  }
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside)
+  }
+}, [click]);
+
+  const hamburgerClick = () => {
+    setClick(!click);
+
+    if (!click) {
+      document.body.classList.add = "no-scroll"; //Disable scrolling
+    } else {
+      document.body.classList.remove = "no-scroll"; //Enable scrolling
+    }
+  };
+
+  const normalize = (str) =>
+    str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+
   const categories = useMemo(() => {
-    const desiredOrder = ["mic-dejun", "pranz", "cina", "desert", "bauturi-nealcoolice", "bauturi-alcoolice" ];
-  return desiredOrder.filter(desiredCat =>
-    menu.some(p => normalize(p.category) === normalize(desiredCat))
-  );
-}, [menu]);
+    const desiredOrder = [
+      "mic-dejun",
+      "pranz",
+      "cina",
+      "desert",
+      "bauturi-nealcoolice",
+      "bauturi-alcoolice",
+    ];
+    return desiredOrder.filter((desiredCat) =>
+      menu.some((p) => normalize(p.category) === normalize(desiredCat))
+    );
+  }, [menu]);
 
   const [activeCat, setActiveCat] = useState(categories[0]);
   const [showProfile, setShowProfile] = useState(false);
-    const [ showSearch, setShowSearch] = useState(false)
+  const [showSearch, setShowSearch] = useState(false);
 
   const token = localStorage.getItem("token");
 
-
   const handleSearch = () => {
-    setSearchResults(searchQuery.trim())
+    setSearchResults(searchQuery.trim());
     // setShowSearch(false)
-     // Scroll la secțiunea cu rezultate după un scurt delay
- 
+    // Scroll la secțiunea cu rezultate după un scurt delay
+
     const resultsSection = document.getElementById("search-results");
     if (resultsSection) {
       resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-  // așteaptă puțin să se afișeze rezultatele
-
-  }
+    // așteaptă puțin să se afișeze rezultatele
+  };
 
   const handleCloseInput = () => {
-      setSearchQuery("");       // goliți inputul
-  setSearchResults("");   // ascundeți rezultatele
-  setShowSearch(false);     // închideți bara
-  }
+    setSearchQuery(""); // goliți inputul
+    setSearchResults(""); // ascundeți rezultatele
+    setShowSearch(false); // închideți bara
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -89,7 +122,8 @@ const Navbar = ({searchQuery, setSearchQuery, setSearchResults}) => {
     const section = document.getElementById(`cat-${cat}`);
     if (section) {
       section.scrollIntoView({ behavior: "smooth", block: "start" });
-      setActiveCat(cat); // marchezi și ca "active" dacă ai state pentru asta
+      setActiveCat(cat);
+      setClick(false) 
     }
     if (section) {
       const y = section.getBoundingClientRect().top + window.scrollY - 54; // 54px = height navbar
@@ -116,42 +150,79 @@ const Navbar = ({searchQuery, setSearchQuery, setSearchResults}) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [categories]);
 
-
-
-
   return (
     <>
       <div className="navbar-component">
-        <div className="navbar">
+       <div className={ click ? "navbar-side-open" : "navbar"}>
         
-          <GiHamburgerMenu color="#486374" />
-          <img src={logo} alt="Logo SVG" />
-          <FaUser color="#486374" onClick={handleUserClick} />
-        </div>
-           
-       {showSearch && (
-  <div className="search-overlay">
-    <form className="search-bar" onSubmit={(e) => {
-      e.preventDefault();
-      handleSearch();
-    }}>
-      
 
-      <input 
-        type="text"
-        placeholder="Caută..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-      />
-      <button className="search-input-btn" type="button" onClick={handleCloseInput}>✕</button>
-    </form>
+      {click && <div className="menu-overlay" onClick={hamburgerClick}></div>}
+  {!click && (
+      <div className="hamburgerMenu" onClick={hamburgerClick}>
+      <FaBars color="#486374" />
+    </div>
+  )}
+  
+
+ 
+  <div ref={sideMenuRef} className={`mobile-side-menu ${click ? "open" : "close"}`}>
+ 
+
+    <button ref={sideMenuRef} className="close-btn" onClick={hamburgerClick}>
+      <FaTimes color="#486374" />
+    </button>
+
+   
+    <img className="side-menu-logo" src={logo} alt="Logo" />
+ 
+
+
+    <ul className={click ? "nav-links active" : "nav-links"}>
+        <h4 className="side-menu-title">Produse</h4>
+  {categories.map((cat) => (
+    <p key={`cat-${cat}`} className="nav-link" onClick={() => handleCategoryClick(cat)}>
+      {cat.charAt(0).toUpperCase() + cat.slice(1)} {/* afișează cu majusculă */}
+    </p>
+  ))}
+</ul>
   </div>
-)}
+
+ 
+  <img src={logo} alt="Logo SVG" />
+  <FaUser color="#486374" onClick={handleUserClick} />
+</div>
+
+
+        {showSearch && (
+          <div className="search-overlay">
+            <form
+              className="search-bar"
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSearch();
+              }}
+            >
+              <input
+                type="text"
+                placeholder="Caută..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button
+                className="search-input-btn"
+                type="button"
+                onClick={handleCloseInput}
+              >
+                ✕
+              </button>
+            </form>
+          </div>
+        )}
         <div className="secondary-nav">
-          <div className="search-icon" onClick={()=>setShowSearch(true)}>
+          <div className="search-icon" onClick={() => setShowSearch(true)}>
             <IoSearch size={25} />
           </div>
-          
+
           <div className="secondary-nav-items">
             <span className="secondary-nav-item">
               {categories.map((cat) => (

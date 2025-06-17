@@ -10,17 +10,24 @@
   width: 100%;
 }
 
+.page{
+  
+}
+
 /* Cutia modalului */
 .cart-modal-content {
     background: #fff;
     border-radius: 18px 18px 0 0;
     width: 100%;
     max-width: 430px;
-    min-height: 290px;
+    height: 60%;
     box-shadow: 0 -2px 22px rgba(50, 16, 92, 0.12);
     padding: 16px 14px 20px 14px;
-    position: relative;
+    position: fixed;
+    bottom: 0;
+    left: 0;
     animation: modal-fade-in 0.32s;
+    bottom: 0;
     
 }
 
@@ -78,6 +85,7 @@
   align-items: center;
   border-bottom: 1px solid #eee;
   padding: 12px 0;
+  
 }
 
 

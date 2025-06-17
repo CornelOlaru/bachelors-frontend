@@ -1,8 +1,10 @@
+import Modal from "../../components/modal/Modal";
 import "./paymentModal.css"
 
 import { useState } from "react";
 
-const PaymentModal = ({ isOpen, onRequestClose, onConfirm, total }) => {
+const PaymentModal = ({ isOpen, onRequestClose, onConfirm }) => {
+ 
   const [method, setMethod] = useState("");
   const [cardDetails, setCardDetails] = useState({ fullName: "", cardNumber: "", cvc: "" });
 
@@ -33,7 +35,13 @@ const PaymentModal = ({ isOpen, onRequestClose, onConfirm, total }) => {
     <div className="modal-bg">
       <div className="modal-content">
         <button className="modal-close" onClick={onRequestClose}>×</button>
-        <h3>Plată comandă ({total} lei)</h3>
+        <Modal.Title>
+
+        <h3>Plată comandă</h3>
+        </Modal.Title>
+        <Modal.Body>
+
+       
         {!method && (
           <>
             <button className="payment-btn" onClick={() => setMethod("cash")}>Cash</button>
@@ -74,7 +82,8 @@ const PaymentModal = ({ isOpen, onRequestClose, onConfirm, total }) => {
             />
             <button className="confirm-btn" type="submit">Plătește</button>
           </form>
-        )}
+        )} 
+        </Modal.Body>
       </div>
     </div>
   );
