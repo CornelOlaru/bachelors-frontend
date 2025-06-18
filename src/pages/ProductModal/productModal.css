@@ -31,7 +31,11 @@
 
 }
 .product-modal-quantity{
-    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 50px 100px;
 }
 .product-modal-quantity button{
  background-color: var(--sky-blue);

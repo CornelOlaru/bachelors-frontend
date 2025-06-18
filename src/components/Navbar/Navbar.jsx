@@ -9,6 +9,7 @@ import logo from "../../assets/logoSVG.svg";
 import LoginModal from "../../pages/Login/Login";
 import RegisterModal from "../../pages/Signup/SignupModal";
 import ProfileModal from "../../pages/profile/ProfileModal";
+import Modal from "../modal/Modal";
 
 const Navbar = ({ searchQuery, setSearchQuery, setSearchResults }) => {
   const { tableId } = useParams();
@@ -239,17 +240,33 @@ const Navbar = ({ searchQuery, setSearchQuery, setSearchResults }) => {
         </div>
       </div>
 
-      {showLogin && (
+      {/* {showLogin && (
+       
+
         <LoginModal
+        
           onRequestClose={() => setShowLogin(false)}
           onSwitchToRegister={() => {
             setShowLogin(false);
             setShowRegister(true);
           }}
-        />
-      )}
+          />
+          
+      )} */}
+        {showLogin && (
+  <Modal isOpen={showLogin} onRequestClose={() => setShowLogin(false)}>
+    <LoginModal
+      onRequestClose={() => setShowLogin(false)}
+      onSwitchToRegister={() => {
+        setShowLogin(false);
+        setShowRegister(true);
+      }}
+    />
+  </Modal>
+)}
 
-      {showRegister && (
+
+      {/* {showRegister && (
         <RegisterModal
           onRequestClose={() => setShowRegister(false)}
           onSwitchToLogin={() => {
@@ -257,14 +274,35 @@ const Navbar = ({ searchQuery, setSearchQuery, setSearchResults }) => {
             setShowLogin(true);
           }}
         />
-      )}
+      )} */}
 
-      {showProfile && (
+ {showRegister && (
+  <Modal size="100" isOpen={showRegister} onRequestClose={() => setShowRegister(false)}>
+    <RegisterModal
+      onRequestClose={() => setShowRegister(false)}
+      onSwitchToLogin={() => {
+        setShowRegister(false);
+        setShowLogin(true);
+      }}
+    />
+  </Modal>
+)}
+
+      {/* {showProfile && (
         <ProfileModal
           onClose={() => setShowProfile(false)}
           onLogout={handleLogout}
         />
-      )}
+      )} */}
+{showProfile && (
+  <Modal size="100" isOpen={showProfile} onRequestClose={() => setShowProfile(false)}>
+    <ProfileModal
+      onClose={() => setShowProfile(false)}
+      onLogout={handleLogout}
+      />
+  </Modal>
+)}
+     
     </>
   );
 };

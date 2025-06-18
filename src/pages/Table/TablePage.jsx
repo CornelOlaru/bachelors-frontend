@@ -193,9 +193,10 @@ const closeModal = () => {
        <Modal
                       isOpen={modalType === "product"}
                       onRequestClose={closeModal}
+                      size="100"
                     >
                       <ProductModal
-                      size="100"
+                      
                       product={selectedProduct}
                       onAddToCart={handleAddToCart}
                       />

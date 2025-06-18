@@ -7,6 +7,7 @@ import { useState } from "react";
 import Modal from "../../components/modal/Modal";
 import Cart from "../../components/Cart/Cart";
 import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../components/Footer/Footer";
 
 
 const MainPage = () => {
@@ -39,6 +40,7 @@ const [searchResults, setSearchResults] = useState("");
       <Modal isOpen={showCart} onRequestClose={closeCart}>
         <Cart onRequestClose={closeCart} />
       </Modal>
+      <Footer />
     </div>
   )
 }

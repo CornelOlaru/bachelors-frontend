@@ -10,9 +10,6 @@
   width: 100%;
 }
 
-.page{
-  
-}
 
 /* Cutia modalului */
 .cart-modal-content {
@@ -78,6 +75,9 @@
     flex-direction: row;
     background-color: var(--sky-blue);
 }
+.cart-tabs button:focus{
+    background-color: var(--light-sky-blue);
+}
 /* Lista de produse */
 .cart-item {
   display: flex;
@@ -106,22 +106,22 @@
 .item-quantity {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 7px;
   margin: 0 13px;
   font-size: 1rem;
 }
 .item-quantity button {
-  /* background: #EAEAEA; */
+  background: #EAEAEA;
   border: none;
   border-radius: 6px;
- height: auto;
-  font-size: 2rem;
+ height: fit-content;
+  font-size: 1rem;
   color: #666;
   cursor: pointer;
   font-weight: 600;
   transition: background 0.17s;
-  padding: 0;
+  padding: 10px;
 }
 .item-quantity button:active {
   background: #a0a0a0;
@@ -309,32 +309,38 @@ CartSticy CSS */
   background: var(--light-sky-blue);
   color: #fff;
   border-radius: 8px;
-  /* box-shadow: 0 -2px 18px rgba(50, 16, 92, 0.13); */
   padding: 13px 30px 13px 24px;
   margin: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content:space-between;
   align-items: center;
   font-size: 17px;
   font-weight: 500;
   cursor: pointer;
   transition: box-shadow 0.17s;
+
+}
+
+.cart-sticky div{
+  display: flex;
+  align-items: center;
 }
 .cart-sticky:active {
   box-shadow: 0 0 0 3px var(--light-sky-blue);
 }
 .cart-sticky-items {
-  font-size: 1rem;
+  /* font-size: 1rem; */
   background-color: #1a1125;
   padding: 4px 8px;
   border-radius: 5px;
 
 }
 .cart-sticky-title{
-
+ padding-left: 15px;
+ font-size: 1.6rem;
 }
 .cart-sticky-total {
-  font-size: 16px;
+  /* font-size: 1rem; */
   font-weight: bold;
   margin-left: 10px;
   
@@ -343,3 +349,5 @@ CartSticy CSS */
   font-size: 22px;
   margin-left: 17px;
 }
+
+

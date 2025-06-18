@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { registerUser } from "../../services/apiService";
 import { FaInfoCircle, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import "./signupModal.css";
+import Modal from "../../components/modal/Modal";
 
 const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
   const [formData, setFormData] = useState({
@@ -42,25 +43,28 @@ const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
     } catch (error) {
       console.error({ message: "Error registering user", error });
     } finally {
-    //   setFormData({
-    //     firstName: "",
-    //     lastName: "",
-    //     email: "",
-    //     password: "",
-    //     phoneNumber: "",
-    //   });
-    //   setConfirmPassword("")
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        phoneNumber: "",
+      });
+      setConfirmPassword("")
     }
   };
 
   return (
-    <main>
-      <div className="signup-container">
-        <button className="close-btn" onClick={onRequestClose}>
-          ×
-        </button>
-        <form className="signup-form" onSubmit={handleRegister}>
+    <>
+      
+        <Modal.Title>
+
           <h1 className="form-title">Register</h1>
+        </Modal.Title>
+        <Modal.Body>
+
+        
+        <form className="signup-form" onSubmit={handleRegister}>
 
           {message && (
             <p className="error-message">
@@ -112,6 +116,7 @@ const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
             <label className="form-label">Password</label>
             <div className="form-input password-input">
               <input
+              className="form-input"
                 name="password"
                 type={showPassword ? "password" : "text"}
                 placeholder="Password"
@@ -119,7 +124,7 @@ const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
                 onChange={handleInputChange}
                 required
               />
-              <span className="eye-password" onClick={() => setShowPassword(!showPassword)}>
+              <span className="eye-password-register" onClick={() => setShowPassword(!showPassword)}>
                 {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
               </span>
             </div>
@@ -129,6 +134,7 @@ const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
             <label className="form-label">Confirm Password</label>
             <div className="form-input password-input">
               <input
+              className="form-input"
                 name="confirmPassword"
                 type={showRetypedPassword ? "password" : "text"}
                 placeholder="Confirm Password"
@@ -136,7 +142,7 @@ const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />
-              <span className="eye-password" onClick={() => setShowRetypedPassword(!showRetypedPassword)}>
+              <span className="eye-password-register" onClick={() => setShowRetypedPassword(!showRetypedPassword)}>
                 {showRetypedPassword ? <FaRegEye /> : <FaRegEyeSlash />}
               </span>
             </div>
@@ -159,6 +165,8 @@ const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
             Sign up
           </button>
         </form>
+</Modal.Body>
+<Modal.Footer>
 
         <p className="switch-link">
           Already have an account?{" "}
@@ -166,8 +174,9 @@ const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
             Login
           </button>
         </p>
-      </div>
-    </main>
+</Modal.Footer>
+   
+    </>
   );
 };
 

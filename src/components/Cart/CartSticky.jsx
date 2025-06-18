@@ -11,7 +11,7 @@ const CartSticky = ({ onClick }) => {
     <button className="cart-sticky" onClick={onClick}>
       <div>
         <span className="cart-sticky-items">{totalItems}</span>
-        <span className="cart-sticky-title">My Cart</span>
+        <span className="cart-sticky-title"> My Cart</span>
       </div>
       <span className="cart-sticky-total">{total}.00 lei</span>
     </button>

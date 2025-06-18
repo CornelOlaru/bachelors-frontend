@@ -3,7 +3,7 @@ import "./paymentModal.css"
 
 import { useState } from "react";
 
-const PaymentModal = ({ isOpen, onRequestClose, onConfirm }) => {
+const PaymentModal = ({ isOpen, onRequestClose, onConfirm, total }) => {
  
   const [method, setMethod] = useState("");
   const [cardDetails, setCardDetails] = useState({ fullName: "", cardNumber: "", cvc: "" });
@@ -37,7 +37,7 @@ const PaymentModal = ({ isOpen, onRequestClose, onConfirm }) => {
         <button className="modal-close" onClick={onRequestClose}>×</button>
         <Modal.Title>
 
-        <h3>Plată comandă</h3>
+        <h3>Plată comandă {total}.00 lei</h3>
         </Modal.Title>
         <Modal.Body>
 
