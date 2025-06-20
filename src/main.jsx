@@ -9,17 +9,23 @@ import MainPage from './pages/MainPage/MainPage.jsx';
 import { CartProvider } from './context/cartContext.jsx';
 import TablePage from './pages/Table/TablePage.jsx';
 import ProductModal from './pages/ProductModal/ProductModal.jsx';
+import HomePage from './pages/home/HomePage.jsx';
+import SessionExpired from './pages/sessionExpired/SessionExpired.jsx';
 
 
 const router = createBrowserRouter([
   
    {
     path: '/',
-    element: < MainPage/>  // sau ce vrei tu pentru pagina de start
+    element: < HomePage/>  // sau ce vrei tu pentru pagina de start
   },
   {
     path: '/table/:tableId',
     element: <MainPage />
+  },
+    {
+    path: '/sessionExpired',
+    element: <SessionExpired />
   },
 ])
 

@@ -8,10 +8,12 @@ import Modal from "../../components/modal/Modal";
 import Cart from "../../components/Cart/Cart";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
+// import { useSessionCheck } from "../../services/sessionCheck";
 
 
 const MainPage = () => {
-  const [showCart, setShowCart] = useState(false);
+
+const [showCart, setShowCart] = useState(false);
 const [searchQuery, setSearchQuery] = useState("");
 const [searchResults, setSearchResults] = useState("");
   

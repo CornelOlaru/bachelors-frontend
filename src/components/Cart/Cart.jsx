@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../context/cartContext";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { saveOrder } from "../../services/apiService";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import PaymentModal from "../../pages/paymentModal/PaymentModal";
 import "./cart.css";
@@ -13,6 +13,8 @@ import CartItem from "./CartItem";
 import OrderedItemList from "./OrderedItemList";
 
 const Cart = ({ onRequestClose }) => {
+
+  const navigate = useNavigate();
   const { cart, updateCartItem, removeFromCart, clearCart } =
     useContext(CartContext);
   const [orderDetails, setOrderDetails] = useState(null);
@@ -136,9 +138,11 @@ const Cart = ({ onRequestClose }) => {
       });
 
       // Feedback de succes, închide modalul, update UI, etc
-      alert("Plata efectuată!");
+      alert("Comanda a fost închisă cu succes. Dacă dorești să comanzi din nou, te rugăm să reîncarci pagina sau să scanezi din nou codul QR.");
+      localStorage.removeItem("sessionId");
       setShowPayment(false);
       onRequestClose();
+      navigate("/")
       // (ex: setShowPaymentModal(false); setPaymentMethod(""); etc)
     } catch (err) {
       // Feedback de eroare

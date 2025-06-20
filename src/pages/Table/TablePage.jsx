@@ -10,6 +10,8 @@ import Modal from "../../components/modal/Modal";
 import Cart from "../../components/Cart/Cart";
 import CartSticky from "../../components/Cart/CartSticky";
 const TablePage = ({ searchQuery, searchResults }) => {
+
+  
   const { tableId } = useParams();
   const [sessionId, setSessionId] = useState(null);
   const [menu, setMenu] = useState([]);
