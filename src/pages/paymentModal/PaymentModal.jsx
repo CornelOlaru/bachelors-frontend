@@ -1,3 +1,4 @@
+import { IoClose } from "react-icons/io5";
 import Modal from "../../components/modal/Modal";
 import "./paymentModal.css"
 
@@ -34,7 +35,7 @@ const PaymentModal = ({ isOpen, onRequestClose, onConfirm, total }) => {
   return (
     <div className="modal-bg">
       <div className="modal-content">
-        <button className="modal-close" onClick={onRequestClose}>×</button>
+        <button className="modal-close" onClick={onRequestClose}><IoClose color="#000" /></button>
         <Modal.Title>
 
         <h3>Plată comandă {total}.00 lei</h3>

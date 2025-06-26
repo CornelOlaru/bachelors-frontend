@@ -5,7 +5,6 @@
 .navbar {
   position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
   background-image: linear-gradient(
     rgba(255, 255, 255, 1),
@@ -15,7 +14,9 @@
   background-position: center;
   z-index: 99;
   padding: 8px;
-  pointer-events: all
+  pointer-events: all;
+  max-width:420px;
+  margin: 0 auto;
 }
 
 .navbar-side-open{
@@ -40,8 +41,10 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  position: fixed; /* Sau fixed dacă vrei peste tot */
-  top: 60px; /* Pune cât are navbarul tău */
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 60px; /* ajustează după înălțimea navbarului tău */
   z-index: 98;
   background-image: linear-gradient(
     rgba(255, 255, 255, 1),
@@ -51,16 +54,10 @@
   background-position: center;
   padding: 8px 8px;
   border-bottom: 1.5px solid #eee;
-
   white-space: nowrap;
   width: 100%;
-
-  /* box-shadow: 0 2px 6px 2px rgba(26, 17, 37, 0.1),
-    0 1px 2px 0 rgba(26, 17, 37, 0.2);
-  -webkit-box-shadow: 0 2px 6px 2px rgba(26, 17, 37, 0.1),
-    0 1px 2px 0 rgba(26, 17, 37, 0.2);
-  -moz-box-shadow: 0 2px 6px 2px rgba(26, 17, 37, 0.1),
-    0 1px 2px 0 rgba(26, 17, 37, 0.2); */
+  max-width: 430px; /* sau cât vrei tu */
+  margin: 0 auto; /* nu are efect cu fixed, dar nu deranjează */
 }
 
 .secondary-nav-icon::-webkit-scrollbar {
@@ -137,10 +134,11 @@
 .search-overlay {
   position: fixed;
   top: 5%;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
-  /* height: 20%; */
-  /* background-color: rgba(0, 0, 0, 0.5); */
+  max-width: 430px; /* sau cât ai nevoie, ex. 500px */
+
   display: flex;
   align-items: center;
   justify-content: center;

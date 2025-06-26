@@ -11,10 +11,11 @@ const ProductModal = ({product, onAddToCart, cart}) => {
     const increaseQty = () => setQuantity(q=> q+1);
     const decreaseQty = () => setQuantity(q=> Math.max(1,q-1));
 
-    const handleAdd = () => {
-        onAddToCart(product, quantity)
-    }
+   const handleAdd = () => {
 
+  onAddToCart(product, quantity);
+};
+  
   return (
     <>
        
@@ -28,7 +29,7 @@ const ProductModal = ({product, onAddToCart, cart}) => {
       <h3 className="product-modal-title">{product.name}</h3>
       <div className="product-modal-weight">{product.weight}g</div>
       <div className="product-modal-desc">{product.description}</div>
-      <div className="product-modal-price">{product.price} lei</div>
+      
        
          <div className="product-modal-quantity">
                     <button onClick={decreaseQty}>-</button>
@@ -39,8 +40,16 @@ const ProductModal = ({product, onAddToCart, cart}) => {
     <Modal.Footer>
 
       <button className="product-modal-add" onClick={handleAdd}>
-        Adaugă în coș
-      </button>
+        <span>
+          {quantity} 
+          </span>
+        <span>
+          Adaugă în coș 
+          </span>
+        <span>
+          {product.price * quantity}.00 lei
+          </span>
+      </button> 
     </Modal.Footer>
     </>
   )}

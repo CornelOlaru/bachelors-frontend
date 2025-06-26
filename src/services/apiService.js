@@ -1,3 +1,6 @@
+
+
+
 const fetchData = async (endpoint, method = "GET", body, token = null) => {
   try {
     const apiUrl = import.meta.env.VITE_DEV_API_BASE_URL;
@@ -34,8 +37,8 @@ export const getMenu = async () => {
   return fetchData("api/products/", "GET", null, null);
 };
 
-export const saveOrder = async (body) => {
-  return fetchData("api/orders/", "POST", body, null )
+export const saveOrder = async (body, token) => {
+  return fetchData("api/orders/", "POST", body, token )
 }
 
 export const getOrders = async () => {

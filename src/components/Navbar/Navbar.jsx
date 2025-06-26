@@ -2,7 +2,7 @@ import { FaBars, FaTimes, FaUser } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import "./navbar.css";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import { getMenu } from "../../services/apiService";
 import { IoSearch } from "react-icons/io5";
 import logo from "../../assets/logoSVG.svg";
@@ -17,21 +17,25 @@ const Navbar = ({ searchQuery, setSearchQuery, setSearchResults }) => {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [click, setClick] = useState(false);
+
   const sideMenuRef = useRef(null); //Using reference to check if the users click outside the element
   // eslint-disable-next-line react-hooks/exhaustive-deps
-
+ 
   useEffect(() => {
     const handleClickOutside = (e) => {
-        if (sideMenuRef.current && !sideMenuRef.current.contains(e.target) && click) {
-            setClick(false)
-        } 
-
-  }
-  document.addEventListener("mousedown", handleClickOutside);
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside)
-  }
-}, [click]);
+      if (
+        sideMenuRef.current &&
+        !sideMenuRef.current.contains(e.target) &&
+        click
+      ) {
+        setClick(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [click]);
 
   const hamburgerClick = () => {
     setClick(!click);
@@ -124,7 +128,7 @@ const Navbar = ({ searchQuery, setSearchQuery, setSearchResults }) => {
     if (section) {
       section.scrollIntoView({ behavior: "smooth", block: "start" });
       setActiveCat(cat);
-      setClick(false) 
+      setClick(false);
     }
     if (section) {
       const y = section.getBoundingClientRect().top + window.scrollY - 54; // 54px = height navbar
@@ -154,45 +158,55 @@ const Navbar = ({ searchQuery, setSearchQuery, setSearchResults }) => {
   return (
     <>
       <div className="navbar-component">
-       <div className={ click ? "navbar-side-open" : "navbar"}>
-        
+        <div className={click ? "navbar-side-open" : "navbar"}>
+          {click && (
+            <div className="menu-overlay" onClick={hamburgerClick}></div>
+          )}
+          {!click && (
+            <div className="hamburgerMenu" onClick={hamburgerClick}>
+              <FaBars fontSize="1.5rem" color="#486374" />
+            </div>
+          )}
 
-      {click && <div className="menu-overlay" onClick={hamburgerClick}></div>}
-  {!click && (
-      <div className="hamburgerMenu" onClick={hamburgerClick}>
-      <FaBars color="#486374" />
-    </div>
-  )}
-  
+          <div
+            ref={sideMenuRef}
+            className={`mobile-side-menu ${click ? "open" : "close"}`}
+          >
+            <button
+              ref={sideMenuRef}
+              className="close-btn"
+              onClick={hamburgerClick}
+            >
+              <FaTimes fontSize="1.5rem" color="#486374" />
+            </button>
 
- 
-  <div ref={sideMenuRef} className={`mobile-side-menu ${click ? "open" : "close"}`}>
- 
+            <a
+              href={`/table/${tableId}`}
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.href = `/table/${tableId}`;
+              }}
+            >
+              <img className="side-menu-logo" src={logo} alt="Logo" />
+            </a>
 
-    <button ref={sideMenuRef} className="close-btn" onClick={hamburgerClick}>
-      <FaTimes color="#486374" />
-    </button>
+            <ul className={click ? "nav-links active" : "nav-links"}>
+              <h4 className="side-menu-title">Produse</h4>
+              {categories.map((cat) => (
+                <p
+                  key={`cat-${cat}`}
+                  className="nav-link"
+                  onClick={() => handleCategoryClick(cat)}
+                >
+                  {cat.charAt(0).toUpperCase() + cat.slice(1)}{" "}
+                </p>
+              ))}
+            </ul>
+          </div>
 
-   
-    <img className="side-menu-logo" src={logo} alt="Logo" />
- 
-
-
-    <ul className={click ? "nav-links active" : "nav-links"}>
-        <h4 className="side-menu-title">Produse</h4>
-  {categories.map((cat) => (
-    <p key={`cat-${cat}`} className="nav-link" onClick={() => handleCategoryClick(cat)}>
-      {cat.charAt(0).toUpperCase() + cat.slice(1)} {/* afișează cu majusculă */}
-    </p>
-  ))}
-</ul>
-  </div>
-
- 
-  <img src={logo} alt="Logo SVG" />
-  <FaUser color="#486374" onClick={handleUserClick} />
-</div>
-
+          <img src={logo} alt="Logo SVG" />
+          <FaUser fontSize="1.5rem" color="#486374" onClick={handleUserClick} />
+        </div>
 
         {showSearch && (
           <div className="search-overlay">
@@ -240,69 +254,46 @@ const Navbar = ({ searchQuery, setSearchQuery, setSearchResults }) => {
         </div>
       </div>
 
-      {/* {showLogin && (
-       
-
-        <LoginModal
-        
-          onRequestClose={() => setShowLogin(false)}
-          onSwitchToRegister={() => {
-            setShowLogin(false);
-            setShowRegister(true);
-          }}
+      {showLogin && (
+        <Modal isOpen={showLogin} onRequestClose={() => setShowLogin(false)}>
+          <LoginModal
+            onRequestClose={() => setShowLogin(false)}
+            onSwitchToRegister={() => {
+              setShowLogin(false);
+              setShowRegister(true);
+            }}
           />
-          
-      )} */}
-        {showLogin && (
-  <Modal isOpen={showLogin} onRequestClose={() => setShowLogin(false)}>
-    <LoginModal
-      onRequestClose={() => setShowLogin(false)}
-      onSwitchToRegister={() => {
-        setShowLogin(false);
-        setShowRegister(true);
-      }}
-    />
-  </Modal>
-)}
+        </Modal>
+      )}
 
-
-      {/* {showRegister && (
-        <RegisterModal
+      {showRegister && (
+        <Modal
+          size="100"
+          isOpen={showRegister}
           onRequestClose={() => setShowRegister(false)}
-          onSwitchToLogin={() => {
-            setShowRegister(false);
-            setShowLogin(true);
-          }}
-        />
-      )} */}
+        >
+          <RegisterModal
+            onRequestClose={() => setShowRegister(false)}
+            onSwitchToLogin={() => {
+              setShowRegister(false);
+              setShowLogin(true);
+            }}
+          />
+        </Modal>
+      )}
 
- {showRegister && (
-  <Modal size="100" isOpen={showRegister} onRequestClose={() => setShowRegister(false)}>
-    <RegisterModal
-      onRequestClose={() => setShowRegister(false)}
-      onSwitchToLogin={() => {
-        setShowRegister(false);
-        setShowLogin(true);
-      }}
-    />
-  </Modal>
-)}
-
-      {/* {showProfile && (
-        <ProfileModal
-          onClose={() => setShowProfile(false)}
-          onLogout={handleLogout}
-        />
-      )} */}
-{showProfile && (
-  <Modal size="100" isOpen={showProfile} onRequestClose={() => setShowProfile(false)}>
-    <ProfileModal
-      onClose={() => setShowProfile(false)}
-      onLogout={handleLogout}
-      />
-  </Modal>
-)}
-     
+      {showProfile && (
+        <Modal
+          size="100"
+          isOpen={showProfile}
+          onRequestClose={() => setShowProfile(false)}
+        >
+          <ProfileModal
+            onClose={() => setShowProfile(false)}
+            onLogout={handleLogout}
+          />
+        </Modal>
+      )}
     </>
   );
 };

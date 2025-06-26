@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-
-import "./modal.css";
 import { IoClose } from "react-icons/io5";
+import "./modal.css";
 const Modal = ({ onRequestClose, children, isOpen, size = "50" }) => {
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -29,12 +29,11 @@ const Modal = ({ onRequestClose, children, isOpen, size = "50" }) => {
           e.stopPropagation();
         }}
       >
-       
         <div className="modal-body">
- <button className="modal-close-button" onClick={onRequestClose}>
-          <IoClose/>
-        </button>
-        {children}
+          <button className="modal-close-button" onClick={onRequestClose}>
+            <IoClose color="#000" />
+          </button>
+          {children}
         </div>
       </div>
     </div>

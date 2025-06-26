@@ -19,6 +19,7 @@
 .product-modal-img{
 
     width: 100%;
+    margin: 0;
     
 }
 .product-modal-weight{
@@ -28,7 +29,8 @@
 
 }
 .product-modal-price{
-
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 .product-modal-quantity{
     display: flex;
@@ -43,6 +45,8 @@
 }
 
 .product-modal-add{
+    display: flex;
+    justify-content: space-between;
  background-color: var(--sky-blue);
-
+width: 100%;
 } 

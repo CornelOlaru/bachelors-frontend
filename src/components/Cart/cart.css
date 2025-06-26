@@ -62,21 +62,33 @@
 .cart-tabs{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 0;
     width: 100%;
     align-items: center;
     background-color: #EAEAEA;
     /* margin-top: 3rem; */
 }
-.cart-tabs button{
+.cart-tabs button {
     display: flex;
     margin: 5px 10px;
     font-size: .8rem;
     flex-direction: row;
-    background-color: var(--sky-blue);
+    background-color: transparent;
+    width: 100%;
+    border: none;
+    outline: none;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 0;
+    transition: background 0.15s;
+    color: var(--light-gray);
 }
-.cart-tabs button:focus{
-    background-color: var(--light-sky-blue);
+
+.cart-tabs button.active {
+    background-color: var(--light-sky-blue); /* sau orice culoare pentru fila activă */
+    color: #fff;  /* dacă vrei și textul mai vizibil pe activ */
+    border-radius: 6px; /* opțional */
 }
 /* Lista de produse */
 .cart-item {
@@ -186,7 +198,7 @@
 }
 .checkout-button {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     background: var(--sky-blue);
     width: 100%;
@@ -197,6 +209,8 @@
   font-weight: 500;
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
+  color: #fff;
+
   /* margin: 10px; */
 }
 
@@ -216,12 +230,12 @@
   color: #221733;
 }
 .empty-cart p {
-  color: #aa7adf;
+  color: var(--light-gray);
   margin-bottom: 18px;
 }
 .empty-cart button {
   background: #e6e2fa;
-  color: #7d41bc;
+    color: var(--light-gray);
   border: none;
   border-radius: 8px;
   padding: 10px 24px;
@@ -229,7 +243,15 @@
   font-weight: 500;
   cursor: pointer;
 }
-
+.empty-cart-message{
+ display: flex;
+  flex-direction: column;
+  text-align: center;
+  
+  color: var(--light-gray);
+  padding: 22px 0 10px 0;
+  font-size: 16px;
+}
 /* Ordered list */
 
 .ordered-list {
@@ -276,21 +298,24 @@
 
 .ordered-price {
   font-weight: bold;
-  color: #32105c;
+  color:#fff;
   font-size: 15px;
   min-width: 62px;
   text-align: right;
 }
 
 .empty-ordered {
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  color: #a5a1c7;
+  
+  color: var(--light-gray);
   padding: 22px 0 10px 0;
   font-size: 16px;
 }
 .ordered-total {
   font-weight: bold;
-  color: #3b2357;
+  color: #fff;
   font-size: 17px;
   text-align: right;
   margin: 17px 0 0 0;
@@ -299,18 +324,23 @@
 
 /* 
 CartSticy CSS */
-
+.cart-sticky-container{
+ 
+  
+}
 .cart-sticky {
   position: fixed;
-  left: 0;
-  right: 0;
+    left: 50%;
+  transform: translateX(-50%);
   bottom: 0;
+  width: 100%;
+  max-width: 400px; /* sau cât vrei tu */
   z-index: 1;
   background: var(--light-sky-blue);
   color: #fff;
   border-radius: 8px;
   padding: 13px 30px 13px 24px;
-  margin: 10px;
+  margin: 10px 0;
   display: flex;
   justify-content:space-between;
   align-items: center;
@@ -318,7 +348,7 @@ CartSticy CSS */
   font-weight: 500;
   cursor: pointer;
   transition: box-shadow 0.17s;
-
+  
 }
 
 .cart-sticky div{
@@ -350,4 +380,8 @@ CartSticy CSS */
   margin-left: 17px;
 }
 
-
+.cart-footer-sticky{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}

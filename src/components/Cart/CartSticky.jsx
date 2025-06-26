@@ -8,13 +8,16 @@ const CartSticky = ({ onClick }) => {
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
+    <div className="cart-sticky-container">
+
     <button className="cart-sticky" onClick={onClick}>
       <div>
         <span className="cart-sticky-items">{totalItems}</span>
-        <span className="cart-sticky-title"> My Cart</span>
+        <span className="cart-sticky-title"> Coșul meu</span>
       </div>
       <span className="cart-sticky-total">{total}.00 lei</span>
     </button>
+    </div>
   );
 };
 

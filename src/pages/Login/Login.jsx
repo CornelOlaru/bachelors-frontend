@@ -26,6 +26,7 @@ const Login = ({ onRequestClose, onSwitchToRegister }) => {
       if (!response.token) return setMessage("Failed to generate token");
 
       localStorage.setItem("token", response.token);
+      localStorage.removeItem("guestToken");
       setMessage("Login successful");
       onRequestClose();
     } catch (error) {
@@ -54,7 +55,7 @@ const Login = ({ onRequestClose, onSwitchToRegister }) => {
               className="form-input"
               name="email"
               type="email"
-              placeholder="Email"
+              placeholder="Introduceți adresa de email"
               value={formData.email}
               onChange={handleInputChange}
               required
@@ -68,7 +69,7 @@ const Login = ({ onRequestClose, onSwitchToRegister }) => {
               className="form-input"
                 name="password"
                 type={showPassword ? "password" : "text"}
-                placeholder="Parolă"
+                placeholder="Introduceți parola"
                 value={formData.password}
                 onChange={handleInputChange}
                 required
@@ -80,17 +81,17 @@ const Login = ({ onRequestClose, onSwitchToRegister }) => {
           </div>
 
           <button className="form-button-login" type="submit">
-            Login
+            Autentificare
           </button>
         </form>
-      </Modal.Body>
-
       <Modal.Footer>
         <p className="switch-link">Nu ai cont?{" "}
         <button type="button" onClick={onSwitchToRegister}>
           Înregistrează-te
         </button></p>
       </Modal.Footer>
+      </Modal.Body>
+
     </>
   );
 };

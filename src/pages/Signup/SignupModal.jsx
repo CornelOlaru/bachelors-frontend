@@ -59,7 +59,7 @@ const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
       
         <Modal.Title>
 
-          <h1 className="form-title">Register</h1>
+          Înregistrare
         </Modal.Title>
         <Modal.Body>
 
@@ -74,12 +74,12 @@ const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
           )}
 
           <div className="form-row">
-            <label className="form-label">First Name</label>
+            <label className="form-label">Prenume</label>
             <input
               className="form-input"
               name="firstName"
               type="text"
-              placeholder="Enter first name"
+              placeholder="Introduceți prenumele"
               value={formData.firstName}
               onChange={handleInputChange}
               required
@@ -87,12 +87,12 @@ const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
           </div>
 
           <div className="form-row">
-            <label className="form-label">Last Name</label>
+            <label className="form-label">Nume</label>
             <input
               className="form-input"
               name="lastName"
               type="text"
-              placeholder="Enter last name"
+              placeholder="Introduceți numele"
               value={formData.lastName}
               onChange={handleInputChange}
               required
@@ -105,7 +105,7 @@ const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
               className="form-input"
               name="email"
               type="email"
-              placeholder="Enter email"
+              placeholder="Introduceți adresa de email"
               value={formData.email}
               onChange={handleInputChange}
               required
@@ -119,7 +119,7 @@ const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
               className="form-input"
                 name="password"
                 type={showPassword ? "password" : "text"}
-                placeholder="Password"
+                placeholder="Introduceți parola"
                 value={formData.password}
                 onChange={handleInputChange}
                 required
@@ -137,7 +137,7 @@ const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
               className="form-input"
                 name="confirmPassword"
                 type={showRetypedPassword ? "password" : "text"}
-                placeholder="Confirm Password"
+                placeholder="Confirmați parola"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
@@ -149,12 +149,12 @@ const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
           </div>
 
           <div className="form-row">
-            <label className="form-label">Phone Number</label>
+            <label className="form-label">Număr de telefon</label>
             <input
               className="form-input"
               name="phoneNumber"
               type="text"
-              placeholder="Enter phone number"
+              placeholder="Introduceți numărul de telefon"
               value={formData.phoneNumber}
               onChange={handleInputChange}
               required
@@ -162,19 +162,19 @@ const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
           </div>
 
           <button className="form-button-register" type="submit">
-            Sign up
+            Înregistrare
           </button>
         </form>
-</Modal.Body>
 <Modal.Footer>
 
         <p className="switch-link">
-          Already have an account?{" "}
+          Aveți deja un cont?
           <button type="button" onClick={onSwitchToLogin}>
-            Login
+            Autentificare
           </button>
         </p>
 </Modal.Footer>
+</Modal.Body>
    
     </>
   );

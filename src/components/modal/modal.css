@@ -51,6 +51,8 @@
   scrollbar-width: none;         /* Firefox */
   -ms-overflow-style: none;      /* IE 10+ */
   min-height: 65%;
+  
+
 }
 
 .modal-body::-webkit-scrollbar {
@@ -78,10 +80,13 @@
 .modal-100 {
   height: 100vh;
 }
+.modal-150 {
+  height: 130vh;
+}
 
 .modal-close-button {
   position: fixed;
-  top: 20px;
+  top: 10px;
   right: 20px;
   background: none;
   border: none;

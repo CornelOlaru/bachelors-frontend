@@ -6,6 +6,8 @@ const SessionExpired = () => {
 
   useEffect(() => {
     localStorage.removeItem("sessionId");
+    localStorage.removeItem("guestToken");
+    localStorage.removeItem("token");
     localStorage.removeItem("cart");
   }, []);
 

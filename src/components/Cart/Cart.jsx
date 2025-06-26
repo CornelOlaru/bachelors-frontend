@@ -11,9 +11,11 @@ import { IoClose } from "react-icons/io5";
 import Modal from "../modal/Modal";
 import CartItem from "./CartItem";
 import OrderedItemList from "./OrderedItemList";
-
+import AuthChoiceModal from "../authChoiceModal/AuthChoiceModal";
+import LoginModal from "../../pages/Login/Login";
+import RegisterModal from "../../pages/Signup/SignupModal";
+import emptyPlate from "../../assets/emptyPlate.svg"
 const Cart = ({ onRequestClose }) => {
-
   const navigate = useNavigate();
   const { cart, updateCartItem, removeFromCart, clearCart } =
     useContext(CartContext);
@@ -24,6 +26,12 @@ const Cart = ({ onRequestClose }) => {
   const [tab, setTabs] = useState("selected");
   const [orderedItems, setOrderedItems] = useState([]);
   const [showPayment, setShowPayment] = useState(false);
+  const [showAuthChoiceModal, setShowAuthChoiceModal] = useState(false);
+
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+const guestToken = localStorage.getItem("guestToken");
+
   const apiUrl = import.meta.env.VITE_DEV_API_BASE_URL;
 
   const token = localStorage.getItem("token");
@@ -67,6 +75,10 @@ const Cart = ({ onRequestClose }) => {
       return;
     }
 
+
+  // Alegi ce token trimiți (prioritar pe cel de utilizator logat)
+  const selectedToken = token ? token : guestToken;
+
     const items = cart.map((item) => ({
       product: item._id,
       name: item.name,
@@ -82,11 +94,13 @@ const Cart = ({ onRequestClose }) => {
       totalPrice: cartTotalPrice,
       ...(userId && { userId }),
     };
+    
     try {
+      console.log("Trimiti token:", selectedToken);
       console.log(order);
       console.log(userId);
-      const response = await saveOrder(order);
-
+    console.log
+      const response = await saveOrder(order, selectedToken);
       alert("Order sent successfully!");
       clearCart();
       if (response && response.data) {
@@ -95,9 +109,22 @@ const Cart = ({ onRequestClose }) => {
         console.error("Failed to fetch order details");
       }
     } catch (error) {
+        
       console.error("Error at sendOrder:", error);
+    
+  }
+  };
+
+  const isAuthenticated = !!token;
+  const handlePlaceOrder = () => {
+    if (!isAuthenticated) {
+      setShowAuthChoiceModal(true);
+    } else {
+      setShowAuthChoiceModal(false);
+      sendOrder();
     }
   };
+
   useEffect(() => {
     const fetchOrderedItems = async () => {
       if (!tableId || !sessionId || tab !== "ordered") return;
@@ -138,11 +165,14 @@ const Cart = ({ onRequestClose }) => {
       });
 
       // Feedback de succes, închide modalul, update UI, etc
-      alert("Comanda a fost închisă cu succes. Dacă dorești să comanzi din nou, te rugăm să reîncarci pagina sau să scanezi din nou codul QR.");
+      alert(
+        "Comanda a fost închisă cu succes. Dacă dorești să comanzi din nou, te rugăm să reîncarci pagina sau să scanezi din nou codul QR."
+      );
       localStorage.removeItem("sessionId");
+      
       setShowPayment(false);
       onRequestClose();
-      navigate("/")
+      navigate("/");
       // (ex: setShowPaymentModal(false); setPaymentMethod(""); etc)
     } catch (err) {
       // Feedback de eroare
@@ -168,10 +198,20 @@ const Cart = ({ onRequestClose }) => {
   return (
     <>
       <Modal.Title>
-        <h2>My cart</h2>
+        <h2>Coșul meu</h2>
         <div className="cart-tabs">
-          <button onClick={() => setTabs("selected")}>Selected</button>
-          <button onClick={() => setTabs("ordered")}>Ordered</button>
+          <button
+            className={tab === "selected" ? "active" : ""}
+            onClick={() => setTabs("selected")}
+          >
+            Selectate
+          </button>
+          <button
+            className={tab === "ordered" ? "active" : ""}
+            onClick={() => setTabs("ordered")}
+          >
+            Comandate
+          </button>
         </div>
       </Modal.Title>
       <Modal.Body>
@@ -190,7 +230,16 @@ const Cart = ({ onRequestClose }) => {
                       />
                     ))
                   ) : (
-                    <div className="empty-cart-message">Coșul este gol.</div>
+                    <div className="empty-cart-message">
+                       <span>
+                  <img src={emptyPlate} alt="Empty Plate" />
+                </span>
+                    <span>
+
+                      Coșul este gol.
+                    </span>
+                      
+                    </div>
                   )}
                 </div>
               </div>
@@ -205,26 +254,69 @@ const Cart = ({ onRequestClose }) => {
                 onConfirm={handlePaymentConfirm} // funcția ta existentă
               />
             ) : (
-              <div className="empty-ordered">Nu ai comenzi plasate.</div>
+              <div className="empty-ordered">
+                <span>
+                  <img src={emptyPlate} alt="Empty Plate" />
+                </span>
+                <span>
+
+                Nu ai comenzi plasate.
+                </span>
+              
+              <span>
+                        Comenzile noi vor apărea în secţiunea 'Produse
+                        selectate'
+                      </span>
+              </div>
             )}
           </div>
+        )}
+        {showRegister && (
+          <Modal
+            size="150"
+            isOpen={showRegister}
+            onRequestClose={() => setShowRegister(false)}
+          >
+            <RegisterModal
+              onRequestClose={() => setShowRegister(false)}
+              onSwitchToLogin={() => {
+                setShowRegister(false);
+                setShowLogin(true);
+              }}
+            />
+          </Modal>
+        )}
+        {showLogin && (
+          <Modal
+            size="100"
+            isOpen={showLogin}
+            onRequestClose={() => setShowLogin(false)}
+          >
+            <LoginModal
+              onRequestClose={() => setShowLogin(false)}
+              onSwitchToRegister={() => {
+                setShowLogin(false);
+                setShowRegister(true);
+              }}
+            />
+          </Modal>
         )}
       </Modal.Body>
       <Modal.Footer>
         {tab === "selected" && cart && (
-          <div>
+          <div className="cart-footer-sticky">
             <div
               id="dineInPlaceOrder"
               className="cart-footer"
-              onClick={() => sendOrder()}
+              onClick={handlePlaceOrder}
             >
               <div>
                 <div className="checkout-button" tabIndex={0} role="button">
-                  <div className="cart-qty">
+                  <div className="cart-qty" style={{textAlign:"right"}}>
                     {cart.reduce((sum, item) => sum + item.quantity, 0)}
                   </div>
-                  <div className="flex-grow-1">Trimite comanda</div>
-                  <div>{cartTotalPrice} lei</div>
+                  <div style={{textAlign:"center"}}>Trimite comanda</div>
+                  <div className="ordered-total" style={{textAlign:"left"}}>{cartTotalPrice} lei</div>
                 </div>
               </div>
             </div>
@@ -239,9 +331,9 @@ const Cart = ({ onRequestClose }) => {
                 role="button"
                 onClick={() => setShowPayment(true)}
               >
-                <div className="cart-qty">{totalQty}</div>
-                <div className="flex-grow-1">Checkout / Închide nota</div>
-                <div className="ordered-total">{totalPrice} lei</div>
+                <div className="cart-qty" style={{textAlign:"right"}}>{totalQty}</div>
+                <div className="flex-grow-1" style={{textAlign:"center"}}>Checkout / Închide nota</div>
+                <div className="ordered-total" style={{textAlign:"left"}}>{totalPrice} lei</div>
               </div>
             </div>
           </div>
@@ -253,6 +345,16 @@ const Cart = ({ onRequestClose }) => {
           total={totalPrice}
         />
       </Modal.Footer>
+      <AuthChoiceModal
+        isOpen={showAuthChoiceModal}
+        onRequestClose={() => setShowAuthChoiceModal(false)}
+        onLogin={() => {
+          setShowAuthChoiceModal(false);
+          // onRequestClose();
+          setShowLogin(true);
+        }}
+        onGuest={sendOrder}
+      />
     </>
   );
 };

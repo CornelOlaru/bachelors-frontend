@@ -8,6 +8,7 @@ import Modal from "../../components/modal/Modal";
 import Cart from "../../components/Cart/Cart";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
+import ScreenWarning from "../../components/ScreenWarning";
 // import { useSessionCheck } from "../../services/sessionCheck";
 
 
@@ -25,12 +26,14 @@ const [searchResults, setSearchResults] = useState("");
   }
 
   return (
-    <div className="main-container">
+    <div div className="center-mobile">
+    <ScreenWarning/>
+    <div className="main-container ">
         <Navbar 
          searchQuery={searchQuery}
-  setSearchQuery={setSearchQuery}
-  setSearchResults={setSearchResults}
-  />
+         setSearchQuery={setSearchQuery}
+         setSearchResults={setSearchResults}
+         />
       <TablePage 
        searchQuery= {searchQuery}
        searchResults={searchResults}
@@ -44,6 +47,7 @@ const [searchResults, setSearchResults] = useState("");
       </Modal>
       <Footer />
     </div>
+       </div>
   )
 }
 

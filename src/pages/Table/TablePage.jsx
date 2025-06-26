@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import "./tablePage.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { getMenu } from "../../services/apiService";
 import { CartContext } from "../../context/cartContext";
@@ -19,9 +19,14 @@ const TablePage = ({ searchQuery, searchResults }) => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const { addToCart, cart } = useContext(CartContext);
   const [activeProductId, setActiveProductId] = useState(null);
-  //   const [quantity, setQuantity] = useState(1);
+  const navigate = useNavigate();
+ const guestToken =localStorage.getItem("guestToken");
+  const apiUrl = import.meta.env.VITE_DEV_API_BASE_URL;
 
-const openProductModal = (product) => {
+  const isAuthenticated = !!localStorage.getItem("token");
+
+
+  const openProductModal = (product) => {
   setSelectedProduct(product);
   setModalType("product");
 };
@@ -44,10 +49,6 @@ const closeModal = () => {
     setModalType(null);
   };
 
-  // const openProductModal = (product) => {
-  //   setSelectedProduct(product);
-  //   setModalType("product");
-  // };
 
   const openCartModal = (cart) => {
     setSelectedProduct(cart);
@@ -68,17 +69,21 @@ const closeModal = () => {
       localStorage.setItem("sessionId", storedSessionId);
     }
     setSessionId(storedSessionId);
+
     const fetchMenu = async () => {
+      
       try {
-        const response = await getMenu();
+        const response = await getMenu(guestToken);
         setMenu(response);
         console.log("Menu Array: ", response);
+         
       } catch (error) {
+        
         console.log("Failed to fetch menu: ", error);
       }
     };
     fetchMenu();
-  }, [tableId]);
+  }, [tableId, isAuthenticated]);
 
   
   const normalize = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();

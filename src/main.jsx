@@ -17,7 +17,7 @@ const router = createBrowserRouter([
   
    {
     path: '/',
-    element: < HomePage/>  // sau ce vrei tu pentru pagina de start
+    element: < HomePage/>
   },
   {
     path: '/table/:tableId',
@@ -32,8 +32,23 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <CartProvider>
-
           <RouterProvider router={router} />
     </CartProvider>
   </StrictMode>,
 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
