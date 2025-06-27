@@ -1,7 +1,6 @@
-/* Fundal semi-transparent */
-.login-main{
-   position: fixed;
- 
+.login-main {
+  position: fixed;
+
   left: 0;
   bottom: 0;
   width: 100%;
@@ -12,19 +11,15 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
-transition: transform 0.4s ease-in-out, opacity 0.3s ease-in-out;
-
+  transition: transform 0.4s ease-in-out, opacity 0.3s ease-in-out;
 }
 
-
-
 .login-container {
- background-color: #fff;
+  background-color: #fff;
   padding: 2rem;
   border-radius: 12px;
   width: 100%;
   height: 100%;
-  /* max-width: 420px; */
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
   position: relative;
   animation: modal-fade-in 0.3s ease;
@@ -33,15 +28,10 @@ transition: transform 0.4s ease-in-out, opacity 0.3s ease-in-out;
   gap: 1rem;
 }
 
-/* Containerul formularului */
 .login-form {
-  /* background-color: #fff; */
-  /* padding: 1rem; */
   border-radius: 12px;
   width: 100%;
   height: 100%;
-  /* max-width: 420px; */
-  /* box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15); */
   position: relative;
   animation: modal-fade-in 0.3s ease;
   display: flex;
@@ -49,7 +39,6 @@ transition: transform 0.4s ease-in-out, opacity 0.3s ease-in-out;
   gap: 1rem;
 }
 
-/* Buton de închidere */
 .close-btn {
   position: absolute;
   top: 12px;
@@ -61,7 +50,6 @@ transition: transform 0.4s ease-in-out, opacity 0.3s ease-in-out;
   cursor: pointer;
 }
 
-/* Titlu */
 .form-title {
   font-size: 1.8rem;
   margin-bottom: 0.5rem;
@@ -70,7 +58,6 @@ transition: transform 0.4s ease-in-out, opacity 0.3s ease-in-out;
   width: 100%;
 }
 
-/* Mesaj eroare/succes */
 .error-message {
   background-color: #ffe0e0;
   color: #b10000;
@@ -82,13 +69,11 @@ transition: transform 0.4s ease-in-out, opacity 0.3s ease-in-out;
   margin-top: -0.5rem;
 }
 
-/* Rând input */
 .form-row {
   display: flex;
   flex-direction: column;
 }
 
-/* Etichete input */
 .form-label {
   font-size: 0.9rem;
   margin-bottom: 0.3rem;
@@ -96,7 +81,6 @@ transition: transform 0.4s ease-in-out, opacity 0.3s ease-in-out;
   color: #333;
 }
 
-/* Inputuri */
 .form-input {
   padding: 0.6rem 0.8rem;
   border-radius: 6px;
@@ -112,7 +96,6 @@ transition: transform 0.4s ease-in-out, opacity 0.3s ease-in-out;
   background-color: #f7faff;
 }
 
-/* Parolă + icon */
 .password-input {
   position: relative;
 }
@@ -130,7 +113,6 @@ transition: transform 0.4s ease-in-out, opacity 0.3s ease-in-out;
   color: #555;
 }
 
-/* Buton login */
 .form-button-login {
   margin-top: 1rem;
   width: 100%;
@@ -142,14 +124,12 @@ transition: transform 0.4s ease-in-out, opacity 0.3s ease-in-out;
   font-weight: bold;
   font-size: 1rem;
   cursor: pointer;
-  /* transition: background-color 0.2s ease; */
 }
 
 .form-button-login:hover {
   background-color: #2e62d5;
 }
 
-/* Link spre Register */
 .switch-link {
   margin-top: 1rem;
   text-align: center;
@@ -170,15 +150,14 @@ transition: transform 0.4s ease-in-out, opacity 0.3s ease-in-out;
   text-decoration: underline;
 }
 
- /* Fade-in animation for the modal content */
-  @keyframes modal-fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(2000px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0px);
-    }
+/* Fade-in animation for the modal content */
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(2000px);
   }
- 
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}

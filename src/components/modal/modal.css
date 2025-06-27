@@ -11,7 +11,7 @@
   z-index: 1000;
   display: flex;
   justify-content: center;
-  align-items: flex-end; /* pornește de jos */
+  align-items: flex-end;
 }
 
 .modal-base {
@@ -21,7 +21,7 @@
   box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
   z-index: 1001;
   width: 100%;
-  max-width: 600px; /* opțional, pe desktop */
+  max-width: 600px;
   transition: transform 0.4s ease-in-out, opacity 0.3s ease-in-out;
   transform: translateY(100%);
   opacity: 0;
@@ -47,16 +47,14 @@
   overflow-y: auto;
   padding: 10px 0;
 
-  /* Ascunde scrollbar-ul (cross-browser) */
-  scrollbar-width: none;         /* Firefox */
-  -ms-overflow-style: none;      /* IE 10+ */
+  /*Hides scrollbar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
   min-height: 65%;
-  
-
 }
 
 .modal-body::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Edge */
+  display: none; /* For browsers such as Chrome, Safari, Edge */
 }
 
 .modal-footer {
@@ -71,7 +69,6 @@
   gap: 10px;
   width: 100%;
 }
-
 
 .modal-50 {
   height: 70vh;
@@ -93,26 +90,24 @@
   font-size: 1.5em;
   cursor: pointer;
   color: #000;
-  /* background-color: #000; */
   z-index: 3;
   padding: 0px;
 }
-  
-  .modal-close-button:hover {
-    color: #666;
+
+.modal-close-button:hover {
+  color: #666;
+}
+.no-scroll {
+  overflow: hidden !important;
+}
+/* Fade-in animation for the modal content */
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(2000px);
   }
-  .no-scroll{
-    overflow:hidden !important;
+  to {
+    opacity: 1;
+    transform: translateY(0px);
   }
-  /* Fade-in animation for the modal content */
-  @keyframes modal-fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(2000px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0px);
-    }
-  }
- 
+}

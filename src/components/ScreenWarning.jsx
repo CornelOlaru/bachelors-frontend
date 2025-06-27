@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import rotateDevice from "../assets/rotate-phone.png"
 import "../index.css"
+//Component applied when the screen is too large
 const ScreenWarning = () => {
 
   const [tooWide, setTooWide] = useState(window.innerWidth > 850);

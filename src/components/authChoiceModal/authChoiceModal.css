@@ -11,7 +11,7 @@
   background: #fff;
   border-radius: 18px;
   padding: 26px 22px 18px 22px;
-  box-shadow: 0 6px 28px rgba(34,23,51,0.13);
+  box-shadow: 0 6px 28px rgba(34, 23, 51, 0.13);
   min-width: 290px;
   position: relative;
 }
@@ -26,18 +26,12 @@
   z-index: 2;
   color: #000;
 }
-.order-btn, .confirm-btn {
-  display: block;
-  width: 100%;
-  margin: 12px 0;
-  padding: 11px;
-  border-radius: 10px;
-  border: none;
-  background: #32105c;
-  color: #fff;
-  font-weight: bold;
-  font-size: 16px;
-  cursor: pointer;
+.auth-choice-btn{
+  background-color: var(--sky-blue);
+}
+
+.auth-choice-btn:active{
+  background-color: var(--light-sky-blue);
 }
 input {
   width: 100%;

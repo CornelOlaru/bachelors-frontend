@@ -1,7 +1,7 @@
 import OrderedItem from "./OrderedItem";
 import Modal from "../modal/Modal";
 import PaymentModal from "../../pages/paymentModal/PaymentModal";
-
+//Component used in the books component for the "ordered" tab
 const OrderedItemList = ({ orders }) => {
   return (
     <>

@@ -14,7 +14,7 @@ import OrderedItemList from "./OrderedItemList";
 import AuthChoiceModal from "../authChoiceModal/AuthChoiceModal";
 import LoginModal from "../../pages/Login/Login";
 import RegisterModal from "../../pages/Signup/SignupModal";
-import emptyPlate from "../../assets/emptyPlate.svg"
+import emptyPlate from "../../assets/emptyPlate.svg";
 const Cart = ({ onRequestClose }) => {
   const navigate = useNavigate();
   const { cart, updateCartItem, removeFromCart, clearCart } =
@@ -30,12 +30,12 @@ const Cart = ({ onRequestClose }) => {
 
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
-const guestToken = localStorage.getItem("guestToken");
+  // const guestToken = localStorage.getItem("guestToken"); For later use and implementation of new security features
 
-  const apiUrl = import.meta.env.VITE_DEV_API_BASE_URL;
+  const apiUrl = import.meta.env.VITE_DEV_API_BASE_URL; // URL taken from the .env file
 
   const token = localStorage.getItem("token");
-
+  //Function for decoding the token and reusing it later
   useEffect(() => {
     if (token) {
       try {
@@ -64,7 +64,7 @@ const guestToken = localStorage.getItem("guestToken");
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-
+  //Function for sending the order to the backend
   const sendOrder = async () => {
     if (!sessionId || !tableId) {
       console.error("Session ID or Table ID is missing");
@@ -75,10 +75,6 @@ const guestToken = localStorage.getItem("guestToken");
       return;
     }
 
-
-  // Alegi ce token trimiți (prioritar pe cel de utilizator logat)
-  const selectedToken = token ? token : guestToken;
-
     const items = cart.map((item) => ({
       product: item._id,
       name: item.name,
@@ -86,7 +82,7 @@ const guestToken = localStorage.getItem("guestToken");
       price: item.price,
     }));
 
-    //Obiectul de trimis
+    //Object ready to be sent
     const order = {
       table: tableId,
       sessionId,
@@ -94,13 +90,12 @@ const guestToken = localStorage.getItem("guestToken");
       totalPrice: cartTotalPrice,
       ...(userId && { userId }),
     };
-    
+
     try {
-      console.log("Trimiti token:", selectedToken);
+      //Debugging console.logs
       console.log(order);
       console.log(userId);
-    console.log
-      const response = await saveOrder(order, selectedToken);
+      const response = await saveOrder(order);
       alert("Order sent successfully!");
       clearCart();
       if (response && response.data) {
@@ -109,10 +104,8 @@ const guestToken = localStorage.getItem("guestToken");
         console.error("Failed to fetch order details");
       }
     } catch (error) {
-        
       console.error("Error at sendOrder:", error);
-    
-  }
+    }
   };
 
   const isAuthenticated = !!token;
@@ -125,6 +118,7 @@ const guestToken = localStorage.getItem("guestToken");
     }
   };
 
+  //Effect for fetching the ordered items with the same sessionId
   useEffect(() => {
     const fetchOrderedItems = async () => {
       if (!tableId || !sessionId || tab !== "ordered") return;
@@ -164,19 +158,17 @@ const guestToken = localStorage.getItem("guestToken");
         body: JSON.stringify(body),
       });
 
-      // Feedback de succes, închide modalul, update UI, etc
       alert(
         "Comanda a fost închisă cu succes. Dacă dorești să comanzi din nou, te rugăm să reîncarci pagina sau să scanezi din nou codul QR."
       );
       localStorage.removeItem("sessionId");
-      
+      localStorage.removeItem("token");
+      localStorage.removeItem("cart");
       setShowPayment(false);
       onRequestClose();
       navigate("/");
-      // (ex: setShowPaymentModal(false); setPaymentMethod(""); etc)
     } catch (err) {
-      // Feedback de eroare
-      alert("Eroare la plată. Încearcă din nou.");
+      alert("Eroare la plată. Încearcă din nou.", err);
     }
   };
   const totalQty = orderedItems.reduce(
@@ -231,14 +223,10 @@ const guestToken = localStorage.getItem("guestToken");
                     ))
                   ) : (
                     <div className="empty-cart-message">
-                       <span>
-                  <img src={emptyPlate} alt="Empty Plate" />
-                </span>
-                    <span>
-
-                      Coșul este gol.
-                    </span>
-                      
+                      <span>
+                        <img src={emptyPlate} alt="Empty Plate" />
+                      </span>
+                      <span>Coșul este gol.</span>
                     </div>
                   )}
                 </div>
@@ -251,22 +239,18 @@ const guestToken = localStorage.getItem("guestToken");
             {orderedItems && orderedItems.length > 0 ? (
               <OrderedItemList
                 orders={orderedItems}
-                onConfirm={handlePaymentConfirm} // funcția ta existentă
+                onConfirm={handlePaymentConfirm}
               />
             ) : (
               <div className="empty-ordered">
                 <span>
                   <img src={emptyPlate} alt="Empty Plate" />
                 </span>
-                <span>
+                <span>Nu ai comenzi plasate.</span>
 
-                Nu ai comenzi plasate.
+                <span>
+                  Comenzile noi vor apărea în secţiunea 'Produse selectate'
                 </span>
-              
-              <span>
-                        Comenzile noi vor apărea în secţiunea 'Produse
-                        selectate'
-                      </span>
               </div>
             )}
           </div>
@@ -312,11 +296,13 @@ const guestToken = localStorage.getItem("guestToken");
             >
               <div>
                 <div className="checkout-button" tabIndex={0} role="button">
-                  <div className="cart-qty" style={{textAlign:"right"}}>
+                  <div className="cart-qty" style={{ textAlign: "right" }}>
                     {cart.reduce((sum, item) => sum + item.quantity, 0)}
                   </div>
-                  <div style={{textAlign:"center"}}>Trimite comanda</div>
-                  <div className="ordered-total" style={{textAlign:"left"}}>{cartTotalPrice} lei</div>
+                  <div style={{ textAlign: "center" }}>Trimite comanda</div>
+                  <div className="ordered-total" style={{ textAlign: "left" }}>
+                    {cartTotalPrice} lei
+                  </div>
                 </div>
               </div>
             </div>
@@ -331,9 +317,15 @@ const guestToken = localStorage.getItem("guestToken");
                 role="button"
                 onClick={() => setShowPayment(true)}
               >
-                <div className="cart-qty" style={{textAlign:"right"}}>{totalQty}</div>
-                <div className="flex-grow-1" style={{textAlign:"center"}}>Checkout / Închide nota</div>
-                <div className="ordered-total" style={{textAlign:"left"}}>{totalPrice} lei</div>
+                <div className="cart-qty" style={{ textAlign: "right" }}>
+                  {totalQty}
+                </div>
+                <div className="flex-grow-1" style={{ textAlign: "center" }}>
+                  Închide nota
+                </div>
+                <div className="ordered-total" style={{ textAlign: "left" }}>
+                  {totalPrice} lei
+                </div>
               </div>
             </div>
           </div>
@@ -350,7 +342,6 @@ const guestToken = localStorage.getItem("guestToken");
         onRequestClose={() => setShowAuthChoiceModal(false)}
         onLogin={() => {
           setShowAuthChoiceModal(false);
-          // onRequestClose();
           setShowLogin(true);
         }}
         onGuest={sendOrder}

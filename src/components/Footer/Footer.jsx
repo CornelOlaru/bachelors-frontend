@@ -1,7 +1,7 @@
 import { IoLogoFacebook, IoLogoInstagram } from "react-icons/io5";
 import "./footer.css";
 
-
+//Component type Footer
 const Footer = () => {
   return (
     <div className='footer-container'>

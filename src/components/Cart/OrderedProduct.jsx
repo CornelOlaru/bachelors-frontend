@@ -1,3 +1,4 @@
+//Component used in the books component for the "ordered" tab
 const OrderedProduct = ({ product }) => {
   return (
     <div className="ordered-item">

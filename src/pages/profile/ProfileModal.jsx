@@ -86,114 +86,113 @@ const ProfileModal = ({ onLogout }) => {
       <div className="profile-modal">
         <Modal.Title>
           <div className="profile-header">
-
-          <h2>My Profile</h2>
-          <h3 style={{ fontWeight: "bold", marginBottom: "1rem" }}>
-            Hi, {decoded.firstName}
-          </h3>
+            <h2>Profilul Meu</h2>
+            <h3 style={{ fontWeight: "bold", marginBottom: "1rem" }}>
+              Salut, {decoded.firstName}
+            </h3>
           </div>
         </Modal.Title>
-        <Modal.Body>
-          <div className="tabs">
-
+        <div className="profile-tabs">
           <button
             className={activeTab === "personal" ? "active" : ""}
             onClick={() => setActiveTab("personal")}
-            >
+          >
             Date personale
           </button>
           <button
             className={activeTab === "orders" ? "active" : ""}
             onClick={() => setActiveTab("orders")}
-            >
+          >
             Istoric Comenzi
           </button>
+        </div>
 
-            </div>
-          <div className="tabs">
-            <div className="user-tab">
-              {activeTab === "personal" && (
-                <>
-                  {message && (
-                    <p className="error-message">
-                      <FaInfoCircle style={{ marginRight: "5px" }} />
-                      {message}
-                    </p>
-                  )}
+        <Modal.Body>
+          <div className="user-tab">
+            {activeTab === "personal" && (
+              <>
+                {message && (
+                  <p className="error-message">
+                    <FaInfoCircle style={{ marginRight: "5px" }} />
+                    {message}
+                  </p>
+                )}
 
-                  <div className="personal-data-edit">
-                    <input
-                      name="firstName"
-                      value={formData.firstName || ""}
-                      onChange={handleInputChange}
-                      disabled={!editMode}
-                    />
-                    <input
-                      name="lastName"
-                      value={formData.lastName || ""}
-                      onChange={handleInputChange}
-                      disabled={!editMode}
-                    />
-                    <input
-                      name="email"
-                      value={formData.email || ""}
-                      onChange={handleInputChange}
-                      disabled={!editMode}
-                    />
-                    <input
-                      name="phoneNumber"
-                      value={formData.phoneNumber || ""}
-                      onChange={handleInputChange}
-                      disabled={!editMode}
-                    />
+                <div className="personal-data-edit">
+                  <input
+                    name="firstName"
+                    value={formData.firstName || ""}
+                    onChange={handleInputChange}
+                    disabled={!editMode}
+                  />
+                  <input
+                    name="lastName"
+                    value={formData.lastName || ""}
+                    onChange={handleInputChange}
+                    disabled={!editMode}
+                  />
+                  <input
+                    name="email"
+                    value={formData.email || ""}
+                    onChange={handleInputChange}
+                    disabled={!editMode}
+                  />
+                  <input
+                    name="phoneNumber"
+                    value={formData.phoneNumber || ""}
+                    onChange={handleInputChange}
+                    disabled={!editMode}
+                  />
 
-                    {!editMode ? (
-                      <button
-                        className="edit-btn"
-                        onClick={() => setEditMode(true)}
-                      >
-                        Modify
+                  {!editMode ? (
+                    <button
+                      className="edit-btn"
+                      onClick={() => setEditMode(true)}
+                    >
+                      Modifică
+                    </button>
+                  ) : (
+                    <div className="modify-buttons">
+                      <button className="save-btn" onClick={handleSave}>
+                        Salvează
                       </button>
-                    ) : (
-                      <>
-                        <button className="save-btn" onClick={handleSave}>
-                          Save
-                        </button>
-                        <button
-                          className="cancel-btn"
-                          onClick={() => setEditMode(false)}
-                        >
-                          Cancel
-                        </button>
-                      </>
-                    )}
-                  </div>
-                </>
-              )}
-            </div>
-            <div className="order-tab">
-              {activeTab === "orders" && (
-                <div className="order-history">
-                  <ul>
-                    {paidOrders.length > 0 ? (
-                      paidOrders.map((order) => (
-                        <li key={order._id}>
-                          Comandă #{order._id.slice(-5)} - {order.totalPrice}{" "}
-                          lei
-                        </li>
-                      ))
-                    ) : (
-                      <p>Nu ai comenzi salvate.</p>
-                    )}
-                  </ul>
+                      <button
+                        className="btn-danger"
+                        onClick={() => setEditMode(false)}
+                      >
+                        Anulează
+                      </button>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
+              </>
+            )}
           </div>
         </Modal.Body>
+        <div className="order-tab">
+          <Modal.Body>
+            {activeTab === "orders" && (
+              <div className="order-history">
+                <ul>
+                  {paidOrders.length > 0 ? (
+                    paidOrders.map((order) => (
+                      <li key={order._id}>
+                        Comandă <strong>#{order._id.slice(-5)}</strong> -{" "}
+                        {order.totalPrice} lei
+                      </li>
+                    ))
+                  ) : (
+                    <p>Nu ai comenzi salvate.</p>
+                  )}
+                </ul>
+              </div>
+            )}
+          </Modal.Body>
+        </div>
+
         <Modal.Footer>
           <button className="logout-btn" onClick={onLogout}>
-            Logout
+            Deconectare
           </button>
         </Modal.Footer>
       </div>

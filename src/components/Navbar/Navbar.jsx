@@ -2,7 +2,7 @@ import { FaBars, FaTimes, FaUser } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import "./navbar.css";
 import { useEffect, useMemo, useRef, useState } from "react";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getMenu } from "../../services/apiService";
 import { IoSearch } from "react-icons/io5";
 import logo from "../../assets/logoSVG.svg";
@@ -20,7 +20,7 @@ const Navbar = ({ searchQuery, setSearchQuery, setSearchResults }) => {
 
   const sideMenuRef = useRef(null); //Using reference to check if the users click outside the element
   // eslint-disable-next-line react-hooks/exhaustive-deps
- 
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -75,20 +75,19 @@ const Navbar = ({ searchQuery, setSearchQuery, setSearchResults }) => {
 
   const handleSearch = () => {
     setSearchResults(searchQuery.trim());
-    // setShowSearch(false)
-    // Scroll la secțiunea cu rezultate după un scurt delay
+
+    // Scroll to the results section after a short delay
 
     const resultsSection = document.getElementById("search-results");
     if (resultsSection) {
       resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-    // așteaptă puțin să se afișeze rezultatele
   };
 
   const handleCloseInput = () => {
-    setSearchQuery(""); // goliți inputul
-    setSearchResults(""); // ascundeți rezultatele
-    setShowSearch(false); // închideți bara
+    setSearchQuery("");
+    setSearchResults("");
+    setShowSearch(false);
   };
 
   const handleLogout = () => {
@@ -107,7 +106,6 @@ const Navbar = ({ searchQuery, setSearchQuery, setSearchResults }) => {
 
   useEffect(() => {
     if (!tableId) {
-      //If table Id isn't present, the function does not fetch
       return;
     }
 

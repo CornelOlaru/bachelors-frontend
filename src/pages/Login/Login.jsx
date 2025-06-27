@@ -21,7 +21,7 @@ const Login = ({ onRequestClose, onSwitchToRegister }) => {
     try {
       const response = await loginUser(formData);
 
-      if (response.status === 401) return setMessage("Unauthorized");
+      if (response.status === 401) return setMessage("Eroare: Email sau parolă incorecte!");
 
       if (!response.token) return setMessage("Failed to generate token");
 

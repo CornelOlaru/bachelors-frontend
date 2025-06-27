@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { CartContext } from "../../context/cartContext";
 import "./cart.css";
-
+//Reused component for displaying the cart button on the main page and in the cart
 const CartSticky = ({ onClick }) => {
   const { cart } = useContext(CartContext);
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);

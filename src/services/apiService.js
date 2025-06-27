@@ -23,7 +23,7 @@ const fetchData = async (endpoint, method = "GET", body, token = null) => {
       const errorData = await response.json();
       console.error(`Error ${method} from ${endpoint}:`, errorData);
       throw new Error(
-        `Error ${method} form ${endpoint}: ${errorData.message} || ${response.statusText}`
+        `Error: ${errorData.message} || ${response.statusText}`
       );
     }
     return response.json();
@@ -37,8 +37,8 @@ export const getMenu = async () => {
   return fetchData("api/products/", "GET", null, null);
 };
 
-export const saveOrder = async (body, token) => {
-  return fetchData("api/orders/", "POST", body, token )
+export const saveOrder = async (body) => {
+  return fetchData("api/orders/", "POST", body, null )
 }
 
 export const getOrders = async () => {

@@ -1,5 +1,5 @@
 import OrderedProduct from "./OrderedProduct";
-
+//Component used in the books component for the "ordered" tab
 const OrderedItem = ({ order }) => {
   const total =
     order.totalPrice ||

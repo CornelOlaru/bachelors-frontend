@@ -1,3 +1,5 @@
+
+//Home page component used as a fallback after the order is completed
 const HomePage = () => {
   return (
     <div className="flex flex-col justify-center items-center h-screen text-center p-6">

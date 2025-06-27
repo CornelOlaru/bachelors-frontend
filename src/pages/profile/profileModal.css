@@ -1,48 +1,71 @@
 .profile-container {
-  /* position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000; */
 }
 
 .profile-modal {
-  /* padding: 1rem; */
   border-radius: 12px;
   width: 100%;
-  /* height: 100%; */
+
   position: relative;
   animation: modal-fade-in 0.3s ease;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  display: flex;
   justify-content: center;
   align-items: center;
 }
-.profile-header{
+.profile-header {
   width: 100% !important;
 }
 
-.edit-btn{
-  align: center;
-}
-
-.tabs{
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-.tabs button{
+.save-btn {
   background-color: var(--sky-blue);
 }
 
+.edit-btn {
+  background-color: var(--sky-blue);
+}
+.btn-danger {
+  background-color: #e63946;
+}
+.edit-btn:active {
+  background-color: var(--light-sky-blue);
+}
+.profile-tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  align-items: center;
+  background-color: #eaeaea;
+}
+.profile-tabs button {
+  display: flex;
+  margin: 5px 10px;
+  font-size: 1rem;
+  flex-direction: row;
+  background-color: transparent;
+  width: 100%;
+  border: none;
+  outline: none;
+  justify-content: center;
+  padding: 8px 0;
+  transition: background 0.15s;
+  color: var(--light-gray);
+}
+.profile-tabs button.active {
+  background-color: var(--light-sky-blue);
+  color: #fff;
+  border-radius: 6px;
+}
 
+.modify-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  flex-grow: 1;
+}
 .close-btn {
   position: absolute;
   top: 10px;
@@ -68,6 +91,46 @@
   color: #888;
   cursor: not-allowed;
 }
-.tabs button:focus{
+.tabs button:focus {
   background-color: var(--light-sky-blue);
+}
+
+/* Order Tab CSS */
+
+.order-tab,
+.user-tab {
+  width: 100%;
+  margin: 0;
+}
+
+.order-history {
+  margin: 0;
+  width: 100%;
+  background: #fafbfc;
+  padding: 0 0 14px 0;
+  border-radius: 12px;
+  min-height: 60px;
+  box-sizing: border-box;
+}
+
+.order-history ul {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.order-history li {
+  background: #fff;
+  margin-bottom: 8px;
+  padding: 10px 12px;
+  border-radius: 9px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.order-history li:last-child {
+  margin-bottom: 0;
 }

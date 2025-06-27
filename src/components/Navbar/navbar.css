@@ -15,14 +15,14 @@
   z-index: 99;
   padding: 8px;
   pointer-events: all;
-  max-width:420px;
+  max-width: 420px;
   margin: 0 auto;
 }
 
-.navbar-side-open{
-     position: fixed;
-   top: 0;
-  left: 0; 
+.navbar-side-open {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   background-image: linear-gradient(
     rgba(255, 255, 255, 1),
@@ -32,7 +32,7 @@
   background-position: center;
   display: flex;
   align-items: center;
-  justify-content:space-between;
+  justify-content: space-between;
   z-index: 99;
   padding: 8px;
   pointer-events: none;
@@ -44,7 +44,7 @@
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  top: 60px; /* ajustează după înălțimea navbarului tău */
+  top: 60px;
   z-index: 98;
   background-image: linear-gradient(
     rgba(255, 255, 255, 1),
@@ -56,30 +56,28 @@
   border-bottom: 1.5px solid #eee;
   white-space: nowrap;
   width: 100%;
-  max-width: 430px; /* sau cât vrei tu */
-  margin: 0 auto; /* nu are efect cu fixed, dar nu deranjează */
+  max-width: 430px;
+  margin: 0 auto;
 }
 
 .secondary-nav-icon::-webkit-scrollbar {
   display: none; /* Chrome/Safari */
 }
 
-.secondary-nav-items{
-    box-shadow:
-    inset 12px 0 15px -12px #a89ddb1f,  /* stânga */
-    inset -12px 0 15px -12px #a89ddb1f, /* dreapta */
-    inset 0 -4px 12px -8px #a89ddb36;   /* jos */ 
-    overflow-x: scroll;
-    overflow-y: hidden;
-    scrollbar-width: none; /* Firefox */
+.secondary-nav-items {
+  box-shadow: inset 12px 0 15px -12px #a89ddb1f,
+    inset -12px 0 15px -12px #a89ddb1f, inset 0 -4px 12px -8px #a89ddb36;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scrollbar-width: none; /* Firefox */
 }
 /* Shadow left&right for categories nav */
 .secondary-nav-items::before,
 .secondary-nav-items::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
-  width: 24px;   /* cât de lat vrei fade-ul */
+  width: 24px;
   height: 100%;
   pointer-events: none;
   z-index: 112;
@@ -101,8 +99,7 @@
 }
 
 .search-icon {
-  /* overflow-x: hidden; */
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .cat-btn {
@@ -130,14 +127,14 @@
 
 /* Search bar style */
 
-/* Fundal semi-transparent peste toată pagina */
+/* Transparent overlay*/
 .search-overlay {
   position: fixed;
   top: 5%;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 430px; /* sau cât ai nevoie, ex. 500px */
+  max-width: 430px;
 
   display: flex;
   align-items: center;
@@ -147,23 +144,21 @@
   padding: 0;
 }
 
-/* Cutia cu bara de căutare */
+/* Search bar */
 
-/* Inputul de căutare */
-.search-bar{
-    width: 100%;
-    padding: 8px;
+/* Search-bar input*/
+.search-bar {
+  width: 100%;
+  padding: 8px;
 }
-.search-bar input{
+.search-bar input {
   background-color: #eaeaea;
-  /* padding: 0.75rem 1rem; */
   border: 1px solid var(--sky-blue);
   border-radius: 6px;
   font-size: 1rem;
   color: #000;
-   background-color: #ffffff;
+  background-color: #ffffff;
   width: 100%;
-  /* max-width: 600px; */
   padding: 8px;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -171,22 +166,20 @@
 }
 
 .search-bar input:focus {
-  
   outline: none;
   background-color: #fff;
-   padding: 8px;
+  padding: 8px;
 }
 
-.search-input-btn{
-    color: #000;
-    background: transparent;
-    position: fixed;
-    right: 25px;
-    padding: 13px 0px;
-
+.search-input-btn {
+  color: #000;
+  background: transparent;
+  position: fixed;
+  right: 25px;
+  padding: 13px 0px;
 }
 
-/* Animații */
+/* Animation for search-bar */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -207,118 +200,108 @@
   }
 }
 
-
 /* Side menu style */
 
- .hamburgerMenu {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    opacity: 1;
-    transition: opacity 0.8s ease-in;
-    font-size: 1.5em;
-    
-  }
-
-  .hamburgerMenu.active {
-    position: fixed;
-    right: 30%;
-    transition: opacity 0.8s ease-in;
-
-    z-index: 10;
-  }
-
-  .side-menu-logo{
-    padding: 15px;
-    padding-left: 32px;
-
-  }
-.side-menu-title{
-   width: 90%;
-   padding: 0;
-   text-transform: none;
-   letter-spacing: 0px;
-   font-size: 1.8rem;
+.hamburgerMenu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  opacity: 1;
+  transition: opacity 0.8s ease-in;
+  font-size: 1.5em;
 }
 
-  .nav-links {
-    display: none;
-    padding-top: 15px;
-  }
-  .nav-links.active {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-    font-size: 20px;
+.hamburgerMenu.active {
+  position: fixed;
+  right: 30%;
+  transition: opacity 0.8s ease-in;
+
+  z-index: 10;
+}
+
+.side-menu-logo {
+  padding: 15px;
+  padding-left: 32px;
+}
+.side-menu-title {
+  width: 90%;
+  padding: 0;
+  text-transform: none;
+  letter-spacing: 0px;
+  font-size: 1.8rem;
+}
+
+.nav-links {
+  display: none;
+  padding-top: 15px;
+}
+.nav-links.active {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  font-size: 20px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-
-  }
-
-.nav-links.active .nav-link:active{
-    text-decoration: underline;
-    background-color: #eaeaea;
-    border-radius: 8px;
-
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
 }
 
-.nav-link{
-    width: 90%;
-    padding: 8px 15px;
-    margin: 0;
+.nav-links.active .nav-link:active {
+  text-decoration: underline;
+  background-color: #eaeaea;
+  border-radius: 8px;
 }
-  .mobile-side-menu {
-    width: 80%;
-    height: 100vh;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    background-color: rgb(255, 255, 255);
-    position: fixed;
-    top:0;
-    left: 0;
-    z-index: 9;
-    transform: translateX(-100%); /* Hidden by default */
-    opacity: 0;
-    transition: transform 0.5s ease, opacity 0.5s ease;
-    pointer-events: none; /* Disable interaction when hidden */
-    
-  }
+.nav-link {
+  width: 90%;
+  padding: 8px 15px;
+  margin: 0;
+}
+.mobile-side-menu {
+  width: 80%;
+  height: 100vh;
 
-  .mobile-side-menu.open {
-    transform: translateX(0); /* Slide into view */
-    opacity: 1;
-    pointer-events: all;
-    
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: rgb(255, 255, 255);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  transform: translateX(-100%); /* Hidden by default */
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  pointer-events: none; /* Disable interaction when hidden */
+}
 
-  }
+.mobile-side-menu.open {
+  transform: translateX(0); /* Slide into view */
+  opacity: 1;
+  pointer-events: all;
+}
 
-  .mobile-side-menu.close {
-    transform: translateX(-100%); /* Slide out of view */
-    opacity: 0;
-    pointer-events: none;
-    
-  }
+.mobile-side-menu.close {
+  transform: translateX(-100%); /* Slide out of view */
+  opacity: 0;
+  pointer-events: none;
+}
 
-  /* 👇 Blochează scroll pe body */
+/* 👇 Block scroll on body when applied */
 .no-scroll {
   overflow: hidden;
   touch-action: none;
 }
 
-/* 👇 Fundal overlay întunecat + blochează click */
 .menu-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.4); /* sau 0.5 dacă vrei mai opac */
+  background: rgba(0, 0, 0, 0.4);
   z-index: 8;
 }

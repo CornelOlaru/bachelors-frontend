@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 import "./modal.css";
+
+//Modal component reused for multiple modal types such as cart, login, register etc.
 const Modal = ({ onRequestClose, children, isOpen, size = "50" }) => {
 
   useEffect(() => {
@@ -40,6 +42,7 @@ const Modal = ({ onRequestClose, children, isOpen, size = "50" }) => {
   ) : null;
 };
 
+//Sub-components from the parent component - Modal that allows structuring its code and styles reused across the project
 Modal.Title = ({ children }) => <div className="modal-title">{children}</div>;
 Modal.Body = ({ children }) => <div className="modal-body">{children}</div>;
 Modal.Footer = ({ children }) => <div className="modal-footer">{children}</div>;

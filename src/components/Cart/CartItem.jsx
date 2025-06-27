@@ -1,5 +1,5 @@
 import { RiDeleteBin6Line } from "react-icons/ri";
-
+//Component reused in the cart for each product
 const CartItem = ({ item, onRemove, onQuantityChange }) => {
   return (
     <div className="cart-item">

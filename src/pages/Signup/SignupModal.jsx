@@ -50,22 +50,15 @@ const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
         password: "",
         phoneNumber: "",
       });
-      setConfirmPassword("")
+      setConfirmPassword("");
     }
   };
 
   return (
     <>
-      
-        <Modal.Title>
-
-          Înregistrare
-        </Modal.Title>
-        <Modal.Body>
-
-        
+      <Modal.Title>Înregistrare</Modal.Title>
+      <Modal.Body>
         <form className="signup-form" onSubmit={handleRegister}>
-
           {message && (
             <p className="error-message">
               <FaInfoCircle style={{ marginRight: "5px" }} />
@@ -116,7 +109,7 @@ const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
             <label className="form-label">Password</label>
             <div className="form-input password-input">
               <input
-              className="form-input"
+                className="form-input"
                 name="password"
                 type={showPassword ? "password" : "text"}
                 placeholder="Introduceți parola"
@@ -124,7 +117,10 @@ const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
                 onChange={handleInputChange}
                 required
               />
-              <span className="eye-password-register" onClick={() => setShowPassword(!showPassword)}>
+              <span
+                className="eye-password-register"
+                onClick={() => setShowPassword(!showPassword)}
+              >
                 {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
               </span>
             </div>
@@ -134,7 +130,7 @@ const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
             <label className="form-label">Confirm Password</label>
             <div className="form-input password-input">
               <input
-              className="form-input"
+                className="form-input"
                 name="confirmPassword"
                 type={showRetypedPassword ? "password" : "text"}
                 placeholder="Confirmați parola"
@@ -142,7 +138,10 @@ const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />
-              <span className="eye-password-register" onClick={() => setShowRetypedPassword(!showRetypedPassword)}>
+              <span
+                className="eye-password-register"
+                onClick={() => setShowRetypedPassword(!showRetypedPassword)}
+              >
                 {showRetypedPassword ? <FaRegEye /> : <FaRegEyeSlash />}
               </span>
             </div>
@@ -165,17 +164,15 @@ const SignupModal = ({ onRequestClose, onSwitchToLogin }) => {
             Înregistrare
           </button>
         </form>
-<Modal.Footer>
-
-        <p className="switch-link">
-          Aveți deja un cont?
-          <button type="button" onClick={onSwitchToLogin}>
-            Autentificare
-          </button>
-        </p>
-</Modal.Footer>
-</Modal.Body>
-   
+        <Modal.Footer>
+          <p className="switch-link">
+            Aveți deja un cont?
+            <button type="button" onClick={onSwitchToLogin}>
+              Autentificare
+            </button>
+          </p>
+        </Modal.Footer>
+      </Modal.Body>
     </>
   );
 };

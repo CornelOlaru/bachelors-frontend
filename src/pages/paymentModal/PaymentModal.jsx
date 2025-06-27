@@ -17,7 +17,7 @@ const PaymentModal = ({ isOpen, onRequestClose, onConfirm, total }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (method === "card") {
-      // Validare minimă
+      
       if (!cardDetails.fullName || !cardDetails.cardNumber || !cardDetails.cvc) {
         alert("Completează toate câmpurile!");
         return;
@@ -45,7 +45,7 @@ const PaymentModal = ({ isOpen, onRequestClose, onConfirm, total }) => {
        
         {!method && (
           <>
-            <button className="payment-btn" onClick={() => setMethod("cash")}>Cash</button>
+            <button className="payment-btn" onClick={() => setMethod("cash")}>Numerar</button>
             <button className="payment-btn" onClick={() => setMethod("card")}>Card</button>
           </>
         )}
