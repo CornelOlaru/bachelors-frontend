@@ -32,7 +32,7 @@ const Cart = ({ onRequestClose }) => {
   const [showRegister, setShowRegister] = useState(false);
   // const guestToken = localStorage.getItem("guestToken"); For later use and implementation of new security features
 
-  const apiUrl = import.meta.env.VITE_DEV_API_BASE_URL; // URL taken from the .env file
+  const apiUrl = import.meta.env.VITE_PROD_API_BASE_URL; // URL taken from the .env file
 
   const token = localStorage.getItem("token");
   //Function for decoding the token and reusing it later

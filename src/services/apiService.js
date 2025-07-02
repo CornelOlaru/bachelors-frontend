@@ -3,7 +3,7 @@
 
 const fetchData = async (endpoint, method = "GET", body, token = null) => {
   try {
-    const apiUrl = import.meta.env.VITE_DEV_API_BASE_URL;
+    const apiUrl = import.meta.env.VITE_PROD_API_BASE_URL;
 
     const response = await fetch(`${apiUrl}/${endpoint}`, {
       method,

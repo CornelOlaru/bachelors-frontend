@@ -19,7 +19,7 @@ const TablePage = ({ searchQuery, searchResults }) => {
   const [activeProductId, setActiveProductId] = useState(null);
   const navigate = useNavigate();
   const guestToken = localStorage.getItem("guestToken");
-  const apiUrl = import.meta.env.VITE_DEV_API_BASE_URL;
+  const apiUrl = import.meta.env.VITE_PROD_API_BASE_URL;
 
   const isAuthenticated = !!localStorage.getItem("token");
 

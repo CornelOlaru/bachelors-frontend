@@ -20,7 +20,7 @@ const ProfileModal = ({ onLogout }) => {
   const [paidOrders, setPaidOrders] = useState([]);
 
   const [message, setMessage] = useState("");
-  const apiUrl = import.meta.env.VITE_DEV_API_BASE_URL;
+  const apiUrl = import.meta.env.VITE_PROD_API_BASE_URL;
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;

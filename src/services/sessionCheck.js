@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 export const useSessionCheck = () => {
   const navigate = useNavigate();
   const { tableId } = useParams();
-  const apiUrl = import.meta.env.VITE_DEV_API_BASE_URL;
+  const apiUrl = import.meta.env.VITE_PROD_API_BASE_URL;
 
   useEffect(() => {
     if (!tableId) return;
